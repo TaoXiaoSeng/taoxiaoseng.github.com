@@ -4,13 +4,23 @@
 		<loc>http://42.121.114.240//</loc>
 	</url>
 	<url>
-		<loc>http://42.121.114.240//2012/new-born.html</loc>
-		<lastmod>2013-04-04</lastmod>
+		<loc>http://42.121.114.240//2013/04/create-docset-used-by-xcode-the-tool-appledoc[V1.0].html</loc>
+		<lastmod>2013-04-06</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
-		<loc>http://42.121.114.240//2013/new-born.html</loc>
-		<lastmod>2012-12-22</lastmod>
+		<loc>http://42.121.114.240//2013/04/create-docset-used-by-xcode-the-tool-appledoc.html</loc>
+		<lastmod>2013-04-06</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://42.121.114.240//2013/04/06/new-one-blog.html</loc>
+		<lastmod>2013-04-06</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://42.121.114.240//2013/first-page.html</loc>
+		<lastmod>2012-04-05</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 </urlset>
