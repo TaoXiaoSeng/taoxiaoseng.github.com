@@ -3,7 +3,16 @@
   <channel>
     <title>淘小僧</title>
     <link>http://42.121.114.240/</link>
-    <pubDate>2013-04-07 12:35:39 +0800</pubDate>
+    <pubDate>2013-04-07 08:58:16 +0800</pubDate>
+    <item>
+      <title>关于如何使用appledoc生成XCode能读取的文档的命令</title>
+      <link>http://42.121.114.240//2013/04/create-docset-used-by-xcode-the-tool-appledoc.html</link>
+      <pubDate>2013-04-06 12:00:00 +0800</pubDate>
+      <description>&lt;p&gt;messenger文档生成命令&lt;/p&gt;
+
+&lt;p&gt;appledoc &amp;ndash;project-name WXMessengerDoc &amp;ndash;project-company &amp;ldquo;alibaba-inc&amp;rdquo; &amp;ndash;company-id com.alibaba-inc.WXMessenger &amp;ndash;output ./WXMessengerDoc &amp;ndash;ignore ./Three20 &amp;ndash;ignore ./ASIHttpRequest &amp;ndash;ignore ./script &amp;ndash;ignore ./tools &amp;ndash;ignore ./docs &amp;ndash;ignore ./Messenger/JSON &amp;ndash;ignore ./Messenger/JSONKit.h &amp;ndash;ignore ./Messenger/JSONKit.m &amp;ndash;ignore ./Messenger/PopverView &amp;ndash;ignore ./Messenger/RichText &amp;ndash;ignore /Messenger/SDWebData &amp;ndash;ignore ./Messenger/SFHFKeychainUtils &amp;ndash;ignore ./Messenger/TouchJSON &amp;ndash;ignore ./Messenger/weak_ref &amp;ndash;ignore ./Messenger/zh-Hans.lproj &amp;ndash;ignore ./Messenger/Frameworks .&lt;/p&gt;
+</description>
+    </item>
     <item>
       <title>关于如何使用appledoc生成XCode能读取的文档的完整版</title>
       <link>http://42.121.114.240//2013/04/create-docset-used-by-xcode-the-tool-appledoc[V1.0].html</link>
@@ -223,12 +232,139 @@ exit 0
 </description>
     </item>
     <item>
-      <title>关于如何使用appledoc生成XCode能读取的文档的命令</title>
-      <link>http://42.121.114.240//2013/04/create-docset-used-by-xcode-the-tool-appledoc.html</link>
-      <pubDate>2013-04-06 12:00:00 +0800</pubDate>
-      <description>&lt;p&gt;messenger文档生成命令&lt;/p&gt;
+      <title>你的第一篇博客</title>
+      <link>http://42.121.114.240//2013/04/07/display-log-in-different-level-with-different-color.html</link>
+      <pubDate>2012-04-07 12:00:00 +0800</pubDate>
+      <description>&lt;p&gt;转发：
+原文出处：http://maxwin.me/blog/?p=124&lt;/p&gt;
 
-&lt;p&gt;appledoc &amp;ndash;project-name WXMessengerDoc &amp;ndash;project-company &amp;ldquo;alibaba-inc&amp;rdquo; &amp;ndash;company-id com.alibaba-inc.WXMessenger &amp;ndash;output ./WXMessengerDoc &amp;ndash;ignore ./Three20 &amp;ndash;ignore ./ASIHttpRequest &amp;ndash;ignore ./script &amp;ndash;ignore ./tools &amp;ndash;ignore ./docs &amp;ndash;ignore ./Messenger/JSON &amp;ndash;ignore ./Messenger/JSONKit.h &amp;ndash;ignore ./Messenger/JSONKit.m &amp;ndash;ignore ./Messenger/PopverView &amp;ndash;ignore ./Messenger/RichText &amp;ndash;ignore /Messenger/SDWebData &amp;ndash;ignore ./Messenger/SFHFKeychainUtils &amp;ndash;ignore ./Messenger/TouchJSON &amp;ndash;ignore ./Messenger/weak_ref &amp;ndash;ignore ./Messenger/zh-Hans.lproj &amp;ndash;ignore ./Messenger/Frameworks .&lt;/p&gt;
+&lt;h2&gt;安装：&lt;/h2&gt;
+
+&lt;p&gt;XLog – Xcode log分级显示插件&lt;/p&gt;
+
+&lt;p&gt;下载链接http://maxwin.me/blog/wp-content/uploads/&lt;sup&gt;2012&lt;/sup&gt;&amp;frasl;&lt;sub&gt;05&lt;/sub&gt;/XLog.zip
+提供功能：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;支持log分级，Debug/Info/Warn/Error&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;支持自定义log颜色&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;安装可查看readme文件，其实就是./install.sh将插件XLog.bundle复制到~/Library/Application\ Support/Developer/Shared/Xcode/Plug-ins/目录下&lt;/p&gt;
+
+&lt;h2&gt;使用&lt;/h2&gt;
+
+&lt;p&gt;引入工程中的XLogUtil.h和.m文件,也可看下列代码.
+调用类似这样的代码XLog_v(@&amp;ldquo;start!&amp;rdquo;);即可。（仔细查看.h文件，里面还提供其他的分级方法，如XLog_i更多的自己查看）。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;//
+//  XLog.h
+//  TestMXLog
+//
+//  Created by WenDong Zhang on 5/9/12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//
+#import &amp;lt;Foundation/Foundation.h&amp;gt;
+
+#define XLOG_ESC_CH @&amp;quot;\033&amp;quot;
+#define XLOG_LEVEL_DEBUG    @&amp;quot;DEBUG&amp;quot;
+#define XLOG_LEVEL_INFO     @&amp;quot;INFO&amp;quot;
+#define XLOG_LEVEL_WARN     @&amp;quot;WARN&amp;quot;
+#define XLOG_LEVEL_ERROR    @&amp;quot;ERROR&amp;quot;
+
+// colors for log level, change it as your wish
+#define XLOG_COLOR_RED   XLOG_ESC_CH @&amp;quot;#FF0000&amp;quot;
+#define XLOG_COLOR_GREEN XLOG_ESC_CH @&amp;quot;#00FF00&amp;quot;
+#define XLOG_COLOR_BROWN  XLOG_ESC_CH @&amp;quot;#FFFF00&amp;quot;
+// hard code, use 00000m for reset flag
+#define XLOG_COLOR_RESET XLOG_ESC_CH @&amp;quot;#00000m&amp;quot;   
+
+
+#if defined (__cplusplus)
+extern &amp;quot;C&amp;quot; {
+#endif
+
+    void _XLog_print(NSString *tag, NSString *colorStr, const char *fileName, const char *funcName, unsigned line, NSString *log);
+    
+    void _XLog_getFileName(const char *path, char *name);
+    
+    BOOL _XLog_isEnable();
+
+#if defined (__cplusplus)
+}
+#endif
+
+#define XLog_log(tag, color, ...) _XLog_print(tag, color, __FILE__, __FUNCTION__, __LINE__, [NSString stringWithFormat:__VA_ARGS__])
+#define XLog_d(...) XLog_log(XLOG_LEVEL_DEBUG, XLOG_COLOR_GREEN, __VA_ARGS__)
+#define XLog_i(...) XLog_log(XLOG_LEVEL_INFO, XLOG_COLOR_RESET, __VA_ARGS__)
+#define XLog_v(...) XLog_log(XLOG_LEVEL_WARN, XLOG_COLOR_BROWN, __VA_ARGS__)
+#define XLog_e(...) XLog_log(XLOG_LEVEL_ERROR, XLOG_COLOR_RED, __VA_ARGS__)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;//
+//  XLog.m
+//  TestMXLog
+//
+//  Created by WenDong Zhang on 5/9/12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//
+
+#import &amp;quot;XLogUtil.h&amp;quot;
+
+//static int isXLogEnable = -1;   // -1: not set, 0: disable, 1: enable
+
+void _XLog_print(NSString *tag, NSString *colorStr, const char *fileName, const char *funcName, unsigned line, NSString *log)
+{
+    const char *tagStr = [tag UTF8String];
+    // show filename without path
+    char *file = (char *)malloc(sizeof(char) * strlen(fileName));
+    _XLog_getFileName(fileName, file);
+    
+    if (_XLog_isEnable()) {
+        printf(&amp;quot;%s&amp;quot;, [colorStr UTF8String]);    // log color
+        printf(&amp;quot;%s[%s]&amp;quot;, [XLOG_ESC_CH UTF8String], tagStr); // start tag
+    }
+    
+    printf(&amp;quot;%s &amp;quot;, [[[NSDate date] description] UTF8String]);   // time
+    printf(&amp;quot;%s %s:l%u) &amp;quot;, file, funcName, line);    // fileName
+    printf(&amp;quot;%s&amp;quot;, [log UTF8String]);    // log 
+    
+    if (_XLog_isEnable()) {
+        printf(&amp;quot;%s[/%s]&amp;quot;, [XLOG_ESC_CH UTF8String], tagStr);    // end tag
+        printf(&amp;quot;%s&amp;quot;, [XLOG_COLOR_RESET UTF8String]);    // reset color
+    }
+    printf(&amp;quot;\n&amp;quot;);
+    
+    free(file);
+}
+
+BOOL _XLog_isEnable()
+{
+    return YES;
+//    if (isXLogEnable == -1) {   // init
+//        char *xlogEnv = getenv(&amp;quot;XLOG_FLAG&amp;quot;);
+//        if (xlogEnv &amp;amp;&amp;amp; !strcmp(xlogEnv, &amp;quot;YES&amp;quot;)) {
+//            isXLogEnable = 1;
+//        } else {
+//            isXLogEnable = 0;
+//        }
+//    }
+//
+//    if (isXLogEnable == 0) {
+//        return NO;
+//    }
+//    return YES;
+}
+
+void _XLog_getFileName(const char *path, char *name)
+{
+    int l = strlen(path);
+    while (l-- &amp;gt;= 0 &amp;amp;&amp;amp; path[l] != &#39;/&#39;) {}
+    strcpy(name, path + (l &amp;gt;= 0 ? l + 1 : 0));
+}
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     <item>
