@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>如何在XCode中以不同的颜色分级显示不同级别的log信息</title>
+  
+    <meta name="description" content="XCode分级显示log信息，并且以不同颜色去显示">
+  
+    <meta name="author" content="taoxiaoseng">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/twitter/stylesheets/bootstrap.min.css" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/twitter/stylesheets/style.css" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/twitter/widgets/google_prettify/stylesheets/twitter-bootstrap.css" type="text/css" rel="stylesheet" media="all">
+ 
+    
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/" style="padding-left:46px;">淘小僧</a>
+          <ul class="nav">
+            
+              
+
+
+  <li><a href="/archive">Archive</a></li>
+
+
+            
+              
+
+
+  <li><a href="/tags">Tags</a></li>
+
+
+            
+              
+
+
+  <li><a href="/categories">Categories</a></li>
+
+
+            
+              
+
+
+  <li><a href="/pages">Pages</a></li>
+
+
+            
+              
+
+
+  <li><a href="/about">About Me</a></li>
+
+
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        <div class="page-header">
+  <h1>如何在XCode中以不同的颜色分级显示不同级别的log信息 </h1>
+</div>
+
+<div class="row">
+  <div class="span8">
+    <p>转发：
+原文出处：http://maxwin.me/blog/?p=124</p>
+
+<h2>安装：</h2>
+
+<p>XLog – Xcode log分级显示插件</p>
+
+<p>下载链接http://maxwin.me/blog/wp-content/uploads/<sup>2012</sup>&frasl;<sub>05</sub>/XLog.zip
+提供功能：</p>
+
+<ol>
+<li><p>支持log分级，Debug/Info/Warn/Error</p></li>
+
+<li><p>支持自定义log颜色</p></li>
+</ol>
+
+<p>安装可查看readme文件，其实就是./install.sh将插件XLog.bundle复制到~/Library/Application\ Support/Developer/Shared/Xcode/Plug-ins/目录下</p>
+
+<h2>使用</h2>
+
+<p>引入工程中的XLogUtil.h和.m文件,也可看下列代码.
+调用类似这样的代码XLog_v(@&ldquo;start!&rdquo;);即可。（仔细查看.h文件，里面还提供其他的分级方法，如XLog_i更多的自己查看）。</p>
+
+<pre><code>//
+//  XLog.h
+//  TestMXLog
+//
+//  Created by WenDong Zhang on 5/9/12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//
+#import &lt;Foundation/Foundation.h&gt;
+
+#define XLOG_ESC_CH @&quot;\033&quot;
+#define XLOG_LEVEL_DEBUG    @&quot;DEBUG&quot;
+#define XLOG_LEVEL_INFO     @&quot;INFO&quot;
+#define XLOG_LEVEL_WARN     @&quot;WARN&quot;
+#define XLOG_LEVEL_ERROR    @&quot;ERROR&quot;
+
+// colors for log level, change it as your wish
+#define XLOG_COLOR_RED   XLOG_ESC_CH @&quot;#FF0000&quot;
+#define XLOG_COLOR_GREEN XLOG_ESC_CH @&quot;#00FF00&quot;
+#define XLOG_COLOR_BROWN  XLOG_ESC_CH @&quot;#FFFF00&quot;
+// hard code, use 00000m for reset flag
+#define XLOG_COLOR_RESET XLOG_ESC_CH @&quot;#00000m&quot;   
+
+
+#if defined (__cplusplus)
+extern &quot;C&quot; {
+#endif
+
+    void _XLog_print(NSString *tag, NSString *colorStr, const char *fileName, const char *funcName, unsigned line, NSString *log);
+    
+    void _XLog_getFileName(const char *path, char *name);
+    
+    BOOL _XLog_isEnable();
+
+#if defined (__cplusplus)
+}
+#endif
+
+#define XLog_log(tag, color, ...) _XLog_print(tag, color, __FILE__, __FUNCTION__, __LINE__, [NSString stringWithFormat:__VA_ARGS__])
+#define XLog_d(...) XLog_log(XLOG_LEVEL_DEBUG, XLOG_COLOR_GREEN, __VA_ARGS__)
+#define XLog_i(...) XLog_log(XLOG_LEVEL_INFO, XLOG_COLOR_RESET, __VA_ARGS__)
+#define XLog_v(...) XLog_log(XLOG_LEVEL_WARN, XLOG_COLOR_BROWN, __VA_ARGS__)
+#define XLog_e(...) XLog_log(XLOG_LEVEL_ERROR, XLOG_COLOR_RED, __VA_ARGS__)
+
+</code></pre>
+
+<pre><code>//
+//  XLog.m
+//  TestMXLog
+//
+//  Created by WenDong Zhang on 5/9/12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//
+
+#import &quot;XLogUtil.h&quot;
+
+//static int isXLogEnable = -1;   // -1: not set, 0: disable, 1: enable
+
+void _XLog_print(NSString *tag, NSString *colorStr, const char *fileName, const char *funcName, unsigned line, NSString *log)
+{
+    const char *tagStr = [tag UTF8String];
+    // show filename without path
+    char *file = (char *)malloc(sizeof(char) * strlen(fileName));
+    _XLog_getFileName(fileName, file);
+    
+    if (_XLog_isEnable()) {
+        printf(&quot;%s&quot;, [colorStr UTF8String]);    // log color
+        printf(&quot;%s[%s]&quot;, [XLOG_ESC_CH UTF8String], tagStr); // start tag
+    }
+    
+    printf(&quot;%s &quot;, [[[NSDate date] description] UTF8String]);   // time
+    printf(&quot;%s %s:l%u) &quot;, file, funcName, line);    // fileName
+    printf(&quot;%s&quot;, [log UTF8String]);    // log 
+    
+    if (_XLog_isEnable()) {
+        printf(&quot;%s[/%s]&quot;, [XLOG_ESC_CH UTF8String], tagStr);    // end tag
+        printf(&quot;%s&quot;, [XLOG_COLOR_RESET UTF8String]);    // reset color
+    }
+    printf(&quot;\n&quot;);
+    
+    free(file);
+}
+
+BOOL _XLog_isEnable()
+{
+    return YES;
+//    if (isXLogEnable == -1) {   // init
+//        char *xlogEnv = getenv(&quot;XLOG_FLAG&quot;);
+//        if (xlogEnv &amp;&amp; !strcmp(xlogEnv, &quot;YES&quot;)) {
+//            isXLogEnable = 1;
+//        } else {
+//            isXLogEnable = 0;
+//        }
+//    }
+//
+//    if (isXLogEnable == 0) {
+//        return NO;
+//    }
+//    return YES;
+}
+
+void _XLog_getFileName(const char *path, char *name)
+{
+    int l = strlen(path);
+    while (l-- &gt;= 0 &amp;&amp; path[l] != '/') {}
+    strcpy(name, path + (l &gt;= 0 ? l + 1 : 0));
+}
+</code></pre>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+        <ul>
+          
+          
+            <li class="prev disabled"><a>&larr; Previous</a></li>
+          
+
+            <li><a href="/archive">Archive</a></li>
+
+          
+            <li class="next"><a href="/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc.html" title="关于如何使用appledoc生成XCode能读取的文档的命令">Next &rarr;</a></li>
+          
+          
+        </ul>
+      </ul>
+    </div>
+    <hr>
+    
+<div id="disqus_thread"></div>
+<script>
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>2013-04-08</span></div>
+    <br>
+    <h4>Categories</h4>
+    <ul class="tag_box">
+    
+      <li>
+  <a href="/categories/#IOS-ref">IOS <span>1</span></a>
+</li>
+    
+    </ul>
+    <br>
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+      <li>
+  <a href="/tags/#Log-ref">Log <span>1</span></a>
+</li>
+    
+      <li>
+  <a href="/tags/#iOS-ref">iOS <span>1</span></a>
+</li>
+    
+      <li>
+  <a href="/tags/#XCode-ref">XCode <span>1</span></a>
+</li>
+    
+    </ul>
+  </div>
+</div>
+
+      </div>
+
+      <footer>
+        <p>&copy; taoxiaoseng 2013 
+          with help from <a href="http://github.com/wendal/gor" target="_blank" title="Gor -- Fast Blog">Gor</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+		  and Idea from <a href="http://ruhoh.com" target="_blank" title="The Definitive Technical Blogging Framework">ruhoh</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+<script>
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i < pres.length; ++i) {
+    pres[i].className = "prettyprint linenums";
+  }
+  prettyPrint();
+</script>
+
+    
+<script>
+    var _gaq=[['_setAccount','UA-123-12'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+  </body>
+</html>
