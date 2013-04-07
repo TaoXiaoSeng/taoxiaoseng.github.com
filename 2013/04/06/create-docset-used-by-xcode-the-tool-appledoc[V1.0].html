@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>关于如何使用appledoc生成XCode能读取的文档的完整版</title>
+  
+    <meta name="description" content="通过appledoc生成xcode能读取的docset">
+  
+    <meta name="author" content="taoxiaoseng">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/twitter/stylesheets/bootstrap.min.css" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/twitter/stylesheets/style.css" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/twitter/widgets/google_prettify/stylesheets/twitter-bootstrap.css" type="text/css" rel="stylesheet" media="all">
+ 
+    
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/" style="padding-left:46px;">淘小僧</a>
+          <ul class="nav">
+            
+              
+
+
+  <li><a href="/archive">Archive</a></li>
+
+
+            
+              
+
+
+  <li><a href="/tags">Tags</a></li>
+
+
+            
+              
+
+
+  <li><a href="/categories">Categories</a></li>
+
+
+            
+              
+
+
+  <li><a href="/pages">Pages</a></li>
+
+
+            
+              
+
+
+  <li><a href="/about">About Me</a></li>
+
+
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        <div class="page-header">
+  <h1>关于如何使用appledoc生成XCode能读取的文档的完整版 </h1>
+</div>
+
+<div class="row">
+  <div class="span8">
+    <p>#关于生成文档的事项</p>
+
+<p>可以借助appledoc去生成文档，并且可以通过xcode自带的文档查看器去跳转查看。</p>
+
+<p>##安装步骤：</p>
+
+<ol>
+<li><p>安装appledoc，简单的方法就是</p>
+
+<ol>
+<li>）下载源码 git clone git://github.com/tomaz/appledoc.git</li>
+
+<li><p>）安装appledoc，并且安装到/usr/bin等目录下，以便直接appledoc直接运行。</p>
+
+<pre><code>sudo sh install-appledoc.sh -b /usr/bin -t ~/Library/Application\ Support/appledoc
+</code></pre></li>
+</ol></li>
+</ol>
+
+<p>##生成文档
+通过下面的命令去生成文档
+<code>
+appledoc --project-name WXMessengerDoc --project-company &quot;alibaba-inc&quot; --company-id com.alibaba-inc.WXMessenger [--output ./helloworld]  [includeFilePathOrFile] [--ignore excludeFilePathOrFile] .
+</code></p>
+
+<p>这个命令只扫描当前目录下所有文件（另外包含includeFilePathOrFile和去除excludeFilePathOrFile) 并生成到某个目录下(默认是当前目录）</p>
+
+<p>该命令结束后会添加到系统的文档目录下</p>
+
+<p>If the path is directory, it&rsquo;s recursively parsed for all source files. If path is file, it&rsquo;s parsed as source file</p>
+
+<p>#####更多关于命令的说明是这样的:
+<a href="http://gentlebytes.com/appledoc-docs-examples-basic/">http://gentlebytes.com/appledoc-docs-examples-basic/</a></p>
+
+<p>2：写代码的时候注意添加注释，我测试下生成的规则后对注释的理解。</p>
+
+<pre><code>头文件中注释使用
+/*
+ 我随便写的，反正这里不会被抽取作为文档的一部分，这里随便写点帮助别人如何使用该API的注释就好了，反正安装了docset后，你都可以直接option+左键点出文档相关了，这里说太多参数，函数作用，返回值的东西也没什么用，而且还占地方
+ */
+- (id)initWithAvatar:(UIImage *)avatarImage;
+
+
+.m或者.mm文件里添加注释如果下，该部分会被appledoc提取生成文档
+/** 你可以从这开始，不过也没什么必要，反正这里和下面那行一样的功能,这行不写可能更加好看点
+ 这里很特别，这里是添加Discussion的地方，这样我们可以看到这个函数有什么问题啊，注意事项啊，反正他放到了文档里的Discussion里，你自己看着办
+ @brief 麻烦告诉我这个函数干什么用的
+ @param avatarImage 介绍下avatarImage是什么东西吧。
+ @return 这里是返回结果的描述，什么情况返回什么样的结果啊？
+ @exception name description
+ */
+- (id)initWithAvatar:(UIImage *)avatarImage{
+    。。。
+}
+</code></pre>
+
+<p>上面的方式是头文件和.m文件分开注释
+但是对于protocol来说，没有实现文件了，所以还是需要直接添加注释的，这里测试的代码如下</p>
+
+<pre><code>/**
+ 这个协议的描述
+ */
+@protocol PHAvatarViewDelegate &lt;NSObject&gt;
+@optional
+/**
+ @brief 这个didShowAvatar delegate的作用
+ */
+-(void)didShowAvatar:(NSString*)avatarName animated:(BOOL)animated;
+@required
+/**
+ @brief willShowAvatar delegate的作用
+ */
+-(void)willShowAvatar:(NSString*)avatarName animated:(BOOL)animated;
+@end
+</code></pre>
+
+<p>通过上面的方式就能生成如下的效果了(protocol类似，这里不贴了），详细的注释和文档效果图见最下面</p>
+
+<p>##说明</p>
+
+<p>这里有几点说明下：（下面说的文档注释指会被提取出生成文档的，普通注释不会被提取)</p>
+
+<p>1:如果文档注释写到.m等文件里也是可行的，这样可以减少头文件的注释大小，头文件只添加一部分普通注释就好了。但是protocol之类的就不得不在声明处添加文档注释了。</p>
+
+<p>2：如果在.m .mm等文件里添加文档注释，那么生成的文档可能有个比较怪异，比如</p>
+
+<pre><code>    Declared In
+    PHAvatarView.m
+</code></pre>
+
+<p>所以这个是写在.m文件里的弊端。</p>
+
+<p>3：要生成文档的添加注释的规则方法如下：</p>
+
+<pre><code>1）多行注释是从下面这种样式/**注释*/注释里抓的，注意前面需要是/**（实际上/*!也支持），对于/*注释*/这样的注释是不会被提取的。单行注释通过///去抓取，//是不会抓取的
+    /**
+      注释
+      */
+2）简介需要标签@brief，而discussion一定要写在最前面。
+3）对于同一个方法不能出现两个两个地方的文档注释，否则.h文件里的注释会覆盖了.m文件
+4）扫描生成注释的时候可以忽略某些文件夹或者某些类型文件。
+5）标签的格式一般为类似@param &lt;name&gt; &lt;description&gt;
+6）可以通过///@name spcename去添加一段需要在文档中标示一组方法的作用，具体看下面的文档效果。
+</code></pre>
+
+<h2>集成安装到XCode中直接安装</h2>
+
+<p>还可以通过在xcode工程里添加一个target来运行该target生成文档
+创建一个target，添加一个run script
+内容类似下面
+<code>
+/usr/bin/appledoc \
+--project-name &quot;Messenger&quot; \
+--project-company &quot;Gentle Bytes&quot; \
+--company-id com.alibaba-inc.WXMessenger \
+--ignore UnitTest   \
+.
+exit 0
+</code>
+说明：这里之前安装appledoc是安装到了/usr/bin下，运行该target后自动生成相关的文档并安装到系统文档目录（/Users/youUserName/Library/Developer/Shared/Documentation/DocSets）下。
+####参见：
+<a href="http://www.infinite-loop.dk/wp/wp-content/uploads/2011/06/Build-Documentation-Script.png">http://www.infinite-loop.dk/wp/wp-content/uploads/2011/06/Build-Documentation-Script.png</a></p>
+
+<p>#附：
+##参考资料：
+###更多参考
+<a href="http://gentlebytes.com/appledoc">http://gentlebytes.com/appledoc</a></p>
+
+<p>github地址: <a href="https://github.com/tomaz/appledoc">https://github.com/tomaz/appledoc</a></p>
+
+<p><a href="http://www.infinite-loop.dk/blog/2011/06/providing-custom-documentation-in-xcode/">http://www.infinite-loop.dk/blog/2011/06/providing-custom-documentation-in-xcode/</a></p>
+
+<p>下面是官方的appledoc源码和生成的文档，可以参考比对。
+<a href="https://github.com/tomaz/appledoc/blob/master/">https://github.com/tomaz/appledoc/blob/master/</a>
+<a href="http://gentlebytes.com/media/appledoc/examples/v2/latest/Classes/GBGenerator.html#tasks">http://gentlebytes.com/media/appledoc/examples/v2/latest/Classes/GBGenerator.html#tasks</a></p>
+
+<p>###附头文件和实现文件的注释和最后的文档效果：</p>
+
+<p>###&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-头文件&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</p>
+
+<pre><code>/** 
+ 这个类的作用
+ */
+@interface PHAvatarView : UIView
+{
+    
+}
+
+///-----------------------------------------------------------------
+/// @name Initialization 
+///-----------------------------------------------------------------
+
+
+/*
+ * 我随便写的，反正这里不会被抽取作为文档的一部分，这里随便写点帮助别人如何使用该API的注释就好了，反正安装了docset后，你都可以直接option+左键点出文档相关了，这里说太多参数，函数作用，返回值的东西也没什么用，而且还占地方
+ *
+ *
+ */
+//我随便写，这里不会被提取
+- (id)initWithAvatar:(UIImage *)avatarImage;
+
+@end
+
+/**
+ 这个协议的描述
+ */
+@protocol PHAvatarViewDelegate &lt;NSObject&gt;
+@optional
+/**
+ @brief 这个didShowAvatar delegate的作用
+ */
+-(void)didShowAvatar:(NSString*)avatarName animated:(BOOL)animated;
+@required
+/**
+ @brief willShowAvatar delegate的作用
+ */
+-(void)willShowAvatar:(NSString*)avatarName animated:(BOOL)animated;
+@end
+</code></pre>
+
+<p>###&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;    实现文件    &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</p>
+
+<pre><code>@implementation PHAvatarView
+
+/** 你可以从这开始，不过也没什么必要，反正这里和下面那行一样的功能,这行不写可能更加好看点
+ 这里很特别，这里是添加Discussion的地方，这样我们可以看到这个函数有什么问题啊，注意事项啊，反正他放到了文档里的Discussion里，你自己看着办
+ @brief 麻烦告诉我这个函数干什么用的
+ @param avatarImage 介绍下avatarImage是什么东西吧
+ @return 这里是返回结果的描述，什么情况返回什么样的结果啊？
+ @exception aaa 异常提示
+ */
+- (id)initWithAvatar:(UIImage *)avatarImage{
+    if (self = [super initWithFrame:CGRectMake(0, 0, 50, 50)]) {
+        UIImageView *avatarImageView = [[[UIImageView alloc] initWithImage:avatarImage] autorelease];
+        [avatarImageView sizeToFit];
+        avatarImageView.layer.cornerRadius = avatarImage.size.width/2.0;
+        avatarImageView.clipsToBounds = YES;
+        avatarImageView.frame = CGRectMake(2, 0, avatarImageView.frame.size.width, avatarImageView.frame.size.height);
+        [self addSubview:avatarImageView];
+
+        UIImageView *maskView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@&quot;invites-user-avatar-edge.png&quot;]] autorelease];
+        [maskView sizeToFit];
+        [self addSubview:maskView];
+    }
+    return self;
+}
+
+@end
+</code></pre>
+
+<p>###&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;     文档效果     &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;
+<img src="http://yunpan.alibaba-inc.com/share/scan.do?info=8H2tK3INh&pInfo=8H2tK3INh&app_name="></p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+        <ul>
+          
+            <li class="prev"><a href="/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc.html" title="关于如何使用appledoc生成XCode能读取的文档的命令">&larr; Previous</a></li>
+          
+          
+
+            <li><a href="/archive">Archive</a></li>
+
+          
+            <li class="next"><a href="/2012/04/08/display-log-in-different-level-with-different-color.html" title="如何在XCode中以不同的颜色分级显示不同级别的log信息">Next &rarr;</a></li>
+          
+          
+        </ul>
+      </ul>
+    </div>
+    <hr>
+    
+<div id="disqus_thread"></div>
+<script>
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>2013-04-06</span></div>
+    <br>
+    <h4>Categories</h4>
+    <ul class="tag_box">
+    
+      <li>
+  <a href="/categories/#appledoc-ref">appledoc <span>2</span></a>
+</li>
+    
+    </ul>
+    <br>
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+      <li>
+  <a href="/tags/#appdoc-ref">appdoc <span>2</span></a>
+</li>
+    
+      <li>
+  <a href="/tags/#docset%2Cxcode%2Cios-ref">docset,xcode,ios <span>2</span></a>
+</li>
+    
+    </ul>
+  </div>
+</div>
+
+      </div>
+
+      <footer>
+        <p>&copy; taoxiaoseng 2013 
+          with help from <a href="http://github.com/wendal/gor" target="_blank" title="Gor -- Fast Blog">Gor</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+		  and Idea from <a href="http://ruhoh.com" target="_blank" title="The Definitive Technical Blogging Framework">ruhoh</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+<script>
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i < pres.length; ++i) {
+    pres[i].className = "prettyprint linenums";
+  }
+  prettyPrint();
+</script>
+
+    
+<script>
+    var _gaq=[['_setAccount','UA-123-12'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+  </body>
+</html>
