@@ -2,7 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Start Point</title>
+    <title>FTP协议完全详解</title>
+  
+    <meta name="description" content="文档生成命令">
   
     <meta name="author" content="taoxiaoseng">
 
@@ -77,212 +79,13 @@
     <div class="container">
 
       <div class="content">
-        
-<div class="page-header">
-  <h1>Start Point </h1>
+        <div class="page-header">
+  <h1>FTP协议完全详解 </h1>
 </div>
 
 <div class="row">
-  <div class="span12">
-    
-It's copy of my steps.
-<h3>最近更新</h3>
-
-
-<div class="post">
-  <!--<h4 class="title"><a href="/2013/04/22/Concurrency_with_Core_Data.html">CoreData编程指南_CoreData的并发编程_章节翻译</a> <span class="date">2013-04-22</span></h3>-->
-  <h4 class="title"><a href="/2013/04/22/Concurrency_with_Core_Data.html">CoreData编程指南_CoreData的并发编程_章节翻译</a></h4>
-  <p>&nbsp;&nbsp;&nbsp;&nbsp;文档生成命令</p>
-  <!--<h1>Core Data的并发（Concurrency with Core Data）</h1>
-
-<p>存在着一些的场景，我们需要利用后台线程或者队列来执行Core Data的一些操作，因为他们能我们带来一些好处，尤其是你需要在Core Data在做一些比较消耗时间的任务时能保证应用程序的用户交互界面能及时响应。但是如果你并发使用Core Data时，那么你需要关心，考虑到对象图(object Groups)不会进入一个冲突的状态。</p>
-
-<p>如果你选择使用并发编程来操作Core Data，你还需要考虑到应用程序的环境。对于大多数的情况，AppKit和UIKit是线程不安全的；另外，OS X Cocoa bindings和controllers也都是线程不安全的 &ndash; 如果你正在使用这些技术，多线程就会复杂了。</p>
-
-<h2>使用Thread Confinement来支持并发（Use Thread Confinement to Support Concurrency）</h2>
-
-<p>Core Data推荐的并发编程的模式是thread confinement（线程封闭，线程约束？）：每个线程必须拥有属于它自身的，完全私有的managed object context。</p>
-
-<p>这里有两种可能的方法来采用这种模式：</p>
-
-<ol>
-<li>给每个线程创建一个managed object context，并且共享一个persistent store coordinator</li>
-<li>给每隔线程创建一个managed object context和persistent store coordinator。（这种方法提供更加强大的并发，但是同样会更加的复杂（尤其是你需要在不同的context之间进行交互）和消耗更多的内存使用）</li>
-</ol>
-
-<p>你必须在它使用的线程中创建相应的managed context。如果你使用的NSOperation，你需要注意它的init方法是在被调用（caller）的线程里执行的。所以你不能够在queue的init方法里创建managed object context，否则你创建的context会关联到这个caller调用者的线程。与之相对应的，你应该在main方法（针对serial queue串行队列）或者start方法（针对concurent queue并发队列）里创建context。</p>
-
-<p>使用thread confinement（线程封闭，线程约束？），你不应该在线程间传递managed objects或者managed object contexts。如果你需要跨线程传递一个managed object，你可以通过以下方法:</p>
-
-<ul>
-<li>传递它的object ID（objectID）然后在接收线程里的managed object context里使用objectWithID:或者existingObjectWithID:error:去获取。相对应的managed objects必须已经保存（save）&ndash;你不能够传递一个新创建的还没有保存过的managed object的ID给另外一个context上。</li>
-<li>在接收context上通过执行fetch来获取得到需要的managed object。</li>
-</ul>
--->
-
-  <!--<div class="more">
-    <a href="/2013/04/22/Concurrency_with_Core_Data.html" class="btn">read more..</a>
-  </div>-->
-</div>
-
-<div class="post">
-  <!--<h4 class="title"><a href="/2013/04/10/%E5%85%B3%E4%BA%8Ecoredata%E4%B8%AD%E5%88%A0%E9%99%A4%E6%B6%88%E6%81%AF%E5%B4%A9%E6%BA%83%E7%9A%84%E6%95%99%E8%AE%AD.html">关于CoreData中删除消息崩溃的教训</a> <span class="date">2013-04-10</span></h3>-->
-  <h4 class="title"><a href="/2013/04/10/%E5%85%B3%E4%BA%8Ecoredata%E4%B8%AD%E5%88%A0%E9%99%A4%E6%B6%88%E6%81%AF%E5%B4%A9%E6%BA%83%E7%9A%84%E6%95%99%E8%AE%AD.html">关于CoreData中删除消息崩溃的教训</a></h4>
-  <p>&nbsp;&nbsp;&nbsp;&nbsp;关于coredata中relationship对于与删除object的影响</p>
-  <!--<h1>关于CoreData中删除记录导致崩溃的教训</h1>
-
-<p>由于之前没有深刻的使用过CoreData（虽然这个技术出来好多年了），只是简单的写了点demo学了下大概如何使用，以及看了一些说明简单了解了整个流程。但是由于项目需要深度使用（至少在我看来CoreData能很好降低耦合），所以工作中还是不得不碰到一些问题。比如这次就碰到。。。</p>
-
-<h2>前因</h2>
-
-<p>因为项目组需要提供SDK给外部使用，所以在做重构，而且做的调整很大很大，由于时间紧张，可能大家都是优先完成代码函数的重构，然后估摸着也很少对重构后的代码功能做测试，只是简单编译了下，然后简单的跑了下程序，看主要聊天功能没问题，就直接check in了。。。引起的后果是代码里可能有一些隐藏的bug。</p>
-
-<p>我因为要修改session和message等很多DB相关的代码重写（虽然对CoreData了解不是那么深，但是根据封装好的接口去重写函数还是没什么大的关系的），所以必然涉及到很多创建会话，删除会话，删除消息，插入消息的功能。重构了部分功能代码后，测试过程中发现删除message，甚至到后面删除session（因为删除session内部涉及到了删除message）都会出现数据库保存操作时错误导致后面崩溃。</p>
-
-<h2>现象</h2>
-
-<p>当有单人聊天时，如果会话中含有消息，那么只删除一条消息也会导致崩溃，清空会话的消息也崩溃。
-跟踪代码后，总是死在coredata save的时候出错。导致后面跟踪到错误，主动报错崩溃。</p>
-
-<h2>查bug过程</h2>
-
-<p>多次比对了自己修改前后的代码逻辑，也查看了之前修改前的版本也存在此问题，感觉不应该是我的代码引起的，所以开始往前翻svn log记录，慢慢的找到一个同事merge了一个比较大的功能进来，并且修改比较大，改动了数据库表信息。所以关注的点开始转向数据表，前前后后花了好几个小时，也添加删除了一些代码去测试，最终还是没有找到真正的原因。这个时候觉得还是要回去翻翻官方文档比较靠谱，因为一下子也不知道到底是哪块出问题，也不知道直接找哪块比较靠谱点。晚上回来后开始翻翻core data programming guide，最后找到了一段关于Relationship Delete Rules的。这里摘抄如下</p>
-
-<pre><code>Relationship Delete Rules
-A relationship's delete rule specifies what should happen if an attempt is made to delete the source object. Note the phrasing in the previous sentence—&quot;if an attempt is made...&quot;. If a relationship's delete rule is set to Deny, it is possible that the source object will not be deleted. Consider again a department's employees relationship, and the effect that the different delete rules have.
-Deny
-If there is at least one object at the relationship destination, then the source object cannot be deleted.
-For example, if you want to remove a department, you must ensure that all the employees in that department are first transferred elsewhere (or fired!) otherwise the department cannot be deleted.
-Nullify
-Set the inverse relationship for objects at the destination to null.
-For example, if you delete a department, set the department for all the current members to null. This only makes sense if the department relationship for an employee is optional, or if you ensure that you set a new department for each of the employees before the next save operation.
-Cascade
-Delete the objects at the destination of the relationship.
-For example, if you delete a department, fire all the employees in that department at the same time.
-No Action
-Do nothing to the object at the destination of the relationship.
-For example, if you delete a department, leave all the employees as they are, even if they still believe they belong to that department.
-</code></pre>
-
-<p>Deny：要求只要destination relationship有一个没有删除，那么source object就不能被删除。</p>
--->
-
-  <!--<div class="more">
-    <a href="/2013/04/10/%E5%85%B3%E4%BA%8Ecoredata%E4%B8%AD%E5%88%A0%E9%99%A4%E6%B6%88%E6%81%AF%E5%B4%A9%E6%BA%83%E7%9A%84%E6%95%99%E8%AE%AD.html" class="btn">read more..</a>
-  </div>-->
-</div>
-
-<div class="post">
-  <!--<h4 class="title"><a href="/2013/04/08/XCode%E5%88%86%E7%BA%A7%E6%98%BE%E7%A4%BAlog%E4%BF%A1%E6%81%AF.html">如何在XCode中以不同的颜色分级显示不同级别的log信息</a> <span class="date">2013-04-08</span></h3>-->
-  <h4 class="title"><a href="/2013/04/08/XCode%E5%88%86%E7%BA%A7%E6%98%BE%E7%A4%BAlog%E4%BF%A1%E6%81%AF.html">如何在XCode中以不同的颜色分级显示不同级别的log信息</a></h4>
-  <p>&nbsp;&nbsp;&nbsp;&nbsp;XCode分级显示log信息，并且以不同颜色去显示</p>
-  <!--<p>转发：
-原文出处：http://maxwin.me/blog/?p=124</p>
-
-<h2>安装：</h2>
-
-<p>XLog – Xcode log分级显示插件</p>
-
-<p>下载链接http://maxwin.me/blog/wp-content/uploads/<sup>2012</sup>&frasl;<sub>05</sub>/XLog.zip
-提供功能：</p>
-
-<ol>
-<li><p>支持log分级，Debug/Info/Warn/Error</p></li>
-
-<li><p>支持自定义log颜色</p></li>
-</ol>
-
-<p>安装可查看readme文件，其实就是./install.sh将插件XLog.bundle复制到~/Library/Application\ Support/Developer/Shared/Xcode/Plug-ins/目录下</p>
-
-<h2>使用</h2>
-
-<p>引入工程中的XLogUtil.h和.m文件,也可看下列代码.
-调用类似这样的代码XLog_v(@&ldquo;start!&rdquo;);即可。（仔细查看.h文件，里面还提供其他的分级方法，如XLog_i更多的自己查看）。</p>
--->
-
-  <!--<div class="more">
-    <a href="/2013/04/08/XCode%E5%88%86%E7%BA%A7%E6%98%BE%E7%A4%BAlog%E4%BF%A1%E6%81%AF.html" class="btn">read more..</a>
-  </div>-->
-</div>
-
-<div class="post">
-  <!--<h4 class="title"><a href="/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc.html">关于如何使用appledoc生成XCode能读取的文档的命令</a> <span class="date">2013-04-06</span></h3>-->
-  <h4 class="title"><a href="/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc.html">关于如何使用appledoc生成XCode能读取的文档的命令</a></h4>
-  <p>&nbsp;&nbsp;&nbsp;&nbsp;文档生成命令</p>
-  <!--<p>messenger文档生成命令</p>
-
-<p>appledoc &ndash;project-name WXMessengerDoc &ndash;project-company &ldquo;alibaba-inc&rdquo; &ndash;company-id com.alibaba-inc.WXMessenger &ndash;output ./WXMessengerDoc &ndash;ignore ./Three20 &ndash;ignore ./ASIHttpRequest &ndash;ignore ./script &ndash;ignore ./tools &ndash;ignore ./docs &ndash;ignore ./Messenger/JSON &ndash;ignore ./Messenger/JSONKit.h &ndash;ignore ./Messenger/JSONKit.m &ndash;ignore ./Messenger/PopverView &ndash;ignore ./Messenger/RichText &ndash;ignore /Messenger/SDWebData &ndash;ignore ./Messenger/SFHFKeychainUtils &ndash;ignore ./Messenger/TouchJSON &ndash;ignore ./Messenger/weak_ref &ndash;ignore ./Messenger/zh-Hans.lproj &ndash;ignore ./Messenger/Frameworks .</p>
--->
-
-  <!--<div class="more">
-    <a href="/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc.html" class="btn">read more..</a>
-  </div>-->
-</div>
-
-<div class="post">
-  <!--<h4 class="title"><a href="/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc[V1.0].html">关于如何使用appledoc生成XCode能读取的文档的完整版</a> <span class="date">2013-04-06</span></h3>-->
-  <h4 class="title"><a href="/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc[V1.0].html">关于如何使用appledoc生成XCode能读取的文档的完整版</a></h4>
-  <p>&nbsp;&nbsp;&nbsp;&nbsp;通过appledoc生成xcode能读取的docset</p>
-  <!--<p>#关于生成文档的事项</p>
-
-<p>可以借助appledoc去生成文档，并且可以通过xcode自带的文档查看器去跳转查看。</p>
-
-<p>##安装步骤：</p>
-
-<ol>
-<li><p>安装appledoc，简单的方法就是</p>
-
-<ol>
-<li>）下载源码 git clone git://github.com/tomaz/appledoc.git</li>
-
-<li><p>）安装appledoc，并且安装到/usr/bin等目录下，以便直接appledoc直接运行。</p>
-
-<pre><code>sudo sh install-appledoc.sh -b /usr/bin -t ~/Library/Application\ Support/appledoc
-</code></pre></li>
-</ol></li>
-</ol>
--->
-
-  <!--<div class="more">
-    <a href="/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc[V1.0].html" class="btn">read more..</a>
-  </div>-->
-</div>
-
-<div class="post">
-  <!--<h4 class="title"><a href="/2013/first-page.html">你的第一篇博客</a> <span class="date">2012-04-05</span></h3>-->
-  <h4 class="title"><a href="/2013/first-page.html">你的第一篇博客</a></h4>
-  <p>&nbsp;&nbsp;&nbsp;&nbsp;测试页面</p>
-  <!--<h1>感谢你使用Gor编写博客</h1>
-
-<h2>本文位于 posts/first-blog.md , 你可以任何删掉,修改这个文件</h2>
-
-<p>文件开头是当前文章的元数据</p>
-
-<ol>
-<li>date为自动生成, 当然,你可以修改,这是你的自由</li>
-<li>permalink 可以是固定地址,也可以由gor为你自动生成</li>
-<li>categories 就是分类, 可以多个</li>
-<li>tags 同理,多个标签也是很常见的</li>
-</ol>
-
-<p>请确保文件使用UTF8 without BOM编码</p>
-
-<h2>你可以通过执行下面的语句来新建一篇博客:</h2>
-
-<pre><code>gor post 文章标题
-</code></pre>
--->
-
-  <!--<div class="more">
-    <a href="/2013/first-page.html" class="btn">read more..</a>
-  </div>-->
-</div>
-
-<div class="post">
-  <!--<h4 class="title"><a href="/2013/04/22/detail_analyse_about_ftp.html">FTP协议完全详解</a> <span class="date">2010-02-24</span></h3>-->
-  <h4 class="title"><a href="/2013/04/22/detail_analyse_about_ftp.html">FTP协议完全详解</a></h4>
-  <p>&nbsp;&nbsp;&nbsp;&nbsp;文档生成命令</p>
-  <!--<h1>FTP协议完全详解</h1>
+  <div class="span8">
+    <h1>FTP协议完全详解</h1>
 
 <pre><code>http://blog.csdn.net/yxyhack/archive/2007/10/15/1826256.aspx
 FTP协议完全详解 
@@ -920,28 +723,64 @@ FTP控制连接通过用户进程端口U和服务器端口L建立，这里默认
 文件以块形式传送，块带有自己的头部分。头字节包括计数域和描述子代码。计数域说明了数据块的字节数，描述子代码定义了以下内容：EOF，EOR重新开始标记或怀疑错误数据。怀疑错误数据不是为了进行差错控制，它是为了站点间交换特定数据，传送时不管本地错误（如硬盘错误）而只管传送，但是传送时可要指出，这个数据可能有错。在此模式下可以使用记录结构，也可以使用相应的数据表示。头字节的结构如下图所示：
 本文来自CSDN博客，转载请标明出处：http://blog.csdn.net/yxyhack/archive/2007/10/15/1826256.aspx
 </code></pre>
--->
 
-  <!--<div class="more">
-    <a href="/2013/04/22/detail_analyse_about_ftp.html" class="btn">read more..</a>
-  </div>-->
-</div>
+    <hr>
+    <div class="pagination">
+      <ul>
+        <ul>
+          
+            <li class="prev"><a href="/2013/first-page.html" title="你的第一篇博客">&larr; Previous</a></li>
+          
+          
 
-<hr/>
-<!-- Duoshuo Comment BEGIN -->
-	<div class="ds-thread"></div>
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"taoxiaoseng"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = 'http://static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		|| document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-<!-- Duoshuo Comment END -->
+            <li><a href="/archive">Archive</a></li>
+
+          
+          
+            <li class="next disabled"><a>Next &rarr;</a>
+          
+        </ul>
+      </ul>
+    </div>
+    <hr>
+    
+<div id="disqus_thread"></div>
+<script>
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>2010-02-24</span></div>
+    <br>
+    <h4>Categories</h4>
+    <ul class="tag_box">
+    
+      <li>
+  <a href="/categories/#other-ref">other <span>1</span></a>
+</li>
+    
+    </ul>
+    <br>
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+      <li>
+  <a href="/tags/#other-ref">other <span>1</span></a>
+</li>
+    
+    </ul>
   </div>
 </div>
 
