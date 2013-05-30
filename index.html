@@ -206,20 +206,6 @@ For example, if you delete a department, leave all the employees as they are, ev
 </div>
 
 <div class="post">
-  <!--<h4 class="title"><a href="/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc.html">关于如何使用appledoc生成XCode能读取的文档的命令</a> <span class="date">2013-04-06</span></h3>-->
-  <h4 class="title"><a href="/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc.html">关于如何使用appledoc生成XCode能读取的文档的命令</a></h4>
-  <p>&nbsp;&nbsp;&nbsp;&nbsp;文档生成命令</p>
-  <!--<p>messenger文档生成命令</p>
-
-<p>appledoc &ndash;project-name WXMessengerDoc &ndash;project-company &ldquo;alibaba-inc&rdquo; &ndash;company-id com.alibaba-inc.WXMessenger &ndash;output ./WXMessengerDoc &ndash;ignore ./Three20 &ndash;ignore ./ASIHttpRequest &ndash;ignore ./script &ndash;ignore ./tools &ndash;ignore ./docs &ndash;ignore ./Messenger/JSON &ndash;ignore ./Messenger/JSONKit.h &ndash;ignore ./Messenger/JSONKit.m &ndash;ignore ./Messenger/PopverView &ndash;ignore ./Messenger/RichText &ndash;ignore /Messenger/SDWebData &ndash;ignore ./Messenger/SFHFKeychainUtils &ndash;ignore ./Messenger/TouchJSON &ndash;ignore ./Messenger/weak_ref &ndash;ignore ./Messenger/zh-Hans.lproj &ndash;ignore ./Messenger/Frameworks .</p>
--->
-
-  <!--<div class="more">
-    <a href="/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc.html" class="btn">read more..</a>
-  </div>-->
-</div>
-
-<div class="post">
   <!--<h4 class="title"><a href="/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc[V1.0].html">关于如何使用appledoc生成XCode能读取的文档的完整版</a> <span class="date">2013-04-06</span></h3>-->
   <h4 class="title"><a href="/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc[V1.0].html">关于如何使用appledoc生成XCode能读取的文档的完整版</a></h4>
   <p>&nbsp;&nbsp;&nbsp;&nbsp;通过appledoc生成xcode能读取的docset</p>
@@ -245,6 +231,20 @@ For example, if you delete a department, leave all the employees as they are, ev
 
   <!--<div class="more">
     <a href="/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc[V1.0].html" class="btn">read more..</a>
+  </div>-->
+</div>
+
+<div class="post">
+  <!--<h4 class="title"><a href="/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc.html">关于如何使用appledoc生成XCode能读取的文档的命令</a> <span class="date">2013-04-06</span></h3>-->
+  <h4 class="title"><a href="/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc.html">关于如何使用appledoc生成XCode能读取的文档的命令</a></h4>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;文档生成命令</p>
+  <!--<p>messenger文档生成命令</p>
+
+<p>appledoc &ndash;project-name WXMessengerDoc &ndash;project-company &ldquo;alibaba-inc&rdquo; &ndash;company-id com.alibaba-inc.WXMessenger &ndash;output ./WXMessengerDoc &ndash;ignore ./Three20 &ndash;ignore ./ASIHttpRequest &ndash;ignore ./script &ndash;ignore ./tools &ndash;ignore ./docs &ndash;ignore ./Messenger/JSON &ndash;ignore ./Messenger/JSONKit.h &ndash;ignore ./Messenger/JSONKit.m &ndash;ignore ./Messenger/PopverView &ndash;ignore ./Messenger/RichText &ndash;ignore /Messenger/SDWebData &ndash;ignore ./Messenger/SFHFKeychainUtils &ndash;ignore ./Messenger/TouchJSON &ndash;ignore ./Messenger/weak_ref &ndash;ignore ./Messenger/zh-Hans.lproj &ndash;ignore ./Messenger/Frameworks .</p>
+-->
+
+  <!--<div class="more">
+    <a href="/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc.html" class="btn">read more..</a>
   </div>-->
 </div>
 
@@ -275,6 +275,41 @@ For example, if you delete a department, leave all the employees as they are, ev
 
   <!--<div class="more">
     <a href="/2013/first-page.html" class="btn">read more..</a>
+  </div>-->
+</div>
+
+<div class="post">
+  <!--<h4 class="title"><a href="/2013/05/30/git_useage_and_github.html">git使用及github</a> <span class="date">2010-05-30</span></h3>-->
+  <h4 class="title"><a href="/2013/05/30/git_useage_and_github.html">git使用及github</a></h4>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;git使用及github的一些说明</p>
+  <!--<h1>git使用及github</h1>
+
+<p>git 和github越来越多人使用，作为一个程序员，应该懂的怎么去用，而我就是个不怎么会用的人，所以我的主管在我刚开始上班的时候就要我去熟悉git那套东西。</p>
+
+<p>当时我依然不是很懂，但最近开始迷糊的懂了，下面是我这段时间的心得。</p>
+
+<h2>创建ssh从而能免登访问github。</h2>
+
+<p>命令<code>ssh-keygen</code>去创建公钥私钥，如果你只希望访问一个服务器的话，比如github，那么你就放到默认的目录下，并且使用默认的私钥和公钥文件路径，即~/.ssh/id_rsa和~/.ssh/id_rsa.pub，其中id_rsa.pub是公钥文件。我们需要将这个文件里的数据复制并粘贴到github上的ssh key里。从而通过ssh就可以面等访问github了。</p>
+
+<p>如果你有多个服务器需要访问，比如我们还需要访问gitlab，那么，这个时候，需要~/.ssh/config文件里的配置来区分服务器和ssh秘钥。</p>
+
+<p>比如我自己的配置为</p>
+
+<pre><code>Host github.com
+    HostName github.com
+    User taoxiaoseng@gmail.com
+    IdentityFile /Users/Dick/.ssh/github_taoxiaoseng_rsa
+    
+Host gitlab.alibaba-inc.com
+    HostName gitlab.alibaba-inc.com
+    User guodi.ggd@taobao.com
+    IdentityFile /Users/Dick/.ssh/gitlab_rsa
+</code></pre>
+-->
+
+  <!--<div class="more">
+    <a href="/2013/05/30/git_useage_and_github.html" class="btn">read more..</a>
   </div>-->
 </div>
 

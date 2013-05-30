@@ -3,7 +3,7 @@
   <channel>
     <title>淘小僧</title>
     <link>http://42.121.114.240/</link>
-    <pubDate>2013-05-13 09:26:29 +0800</pubDate>
+    <pubDate>2013-05-30 08:28:28 +0800</pubDate>
     <item>
       <title>CoreData编程指南_CoreData的并发编程_章节翻译</title>
       <link>http://42.121.114.240//2013/04/22/Concurrency_with_Core_Data.html</link>
@@ -265,15 +265,6 @@ void _XLog_getFileName(const char *path, char *name)
 </description>
     </item>
     <item>
-      <title>关于如何使用appledoc生成XCode能读取的文档的命令</title>
-      <link>http://42.121.114.240//2013/04/06/create-docset-used-by-xcode-the-tool-appledoc.html</link>
-      <pubDate>2013-04-06 12:00:00 +0800</pubDate>
-      <description>&lt;p&gt;messenger文档生成命令&lt;/p&gt;
-
-&lt;p&gt;appledoc &amp;ndash;project-name WXMessengerDoc &amp;ndash;project-company &amp;ldquo;alibaba-inc&amp;rdquo; &amp;ndash;company-id com.alibaba-inc.WXMessenger &amp;ndash;output ./WXMessengerDoc &amp;ndash;ignore ./Three20 &amp;ndash;ignore ./ASIHttpRequest &amp;ndash;ignore ./script &amp;ndash;ignore ./tools &amp;ndash;ignore ./docs &amp;ndash;ignore ./Messenger/JSON &amp;ndash;ignore ./Messenger/JSONKit.h &amp;ndash;ignore ./Messenger/JSONKit.m &amp;ndash;ignore ./Messenger/PopverView &amp;ndash;ignore ./Messenger/RichText &amp;ndash;ignore /Messenger/SDWebData &amp;ndash;ignore ./Messenger/SFHFKeychainUtils &amp;ndash;ignore ./Messenger/TouchJSON &amp;ndash;ignore ./Messenger/weak_ref &amp;ndash;ignore ./Messenger/zh-Hans.lproj &amp;ndash;ignore ./Messenger/Frameworks .&lt;/p&gt;
-</description>
-    </item>
-    <item>
       <title>关于如何使用appledoc生成XCode能读取的文档的完整版</title>
       <link>http://42.121.114.240//2013/04/06/create-docset-used-by-xcode-the-tool-appledoc[V1.0].html</link>
       <pubDate>2013-04-06 12:00:00 +0800</pubDate>
@@ -492,6 +483,15 @@ exit 0
 </description>
     </item>
     <item>
+      <title>关于如何使用appledoc生成XCode能读取的文档的命令</title>
+      <link>http://42.121.114.240//2013/04/06/create-docset-used-by-xcode-the-tool-appledoc.html</link>
+      <pubDate>2013-04-06 12:00:00 +0800</pubDate>
+      <description>&lt;p&gt;messenger文档生成命令&lt;/p&gt;
+
+&lt;p&gt;appledoc &amp;ndash;project-name WXMessengerDoc &amp;ndash;project-company &amp;ldquo;alibaba-inc&amp;rdquo; &amp;ndash;company-id com.alibaba-inc.WXMessenger &amp;ndash;output ./WXMessengerDoc &amp;ndash;ignore ./Three20 &amp;ndash;ignore ./ASIHttpRequest &amp;ndash;ignore ./script &amp;ndash;ignore ./tools &amp;ndash;ignore ./docs &amp;ndash;ignore ./Messenger/JSON &amp;ndash;ignore ./Messenger/JSONKit.h &amp;ndash;ignore ./Messenger/JSONKit.m &amp;ndash;ignore ./Messenger/PopverView &amp;ndash;ignore ./Messenger/RichText &amp;ndash;ignore /Messenger/SDWebData &amp;ndash;ignore ./Messenger/SFHFKeychainUtils &amp;ndash;ignore ./Messenger/TouchJSON &amp;ndash;ignore ./Messenger/weak_ref &amp;ndash;ignore ./Messenger/zh-Hans.lproj &amp;ndash;ignore ./Messenger/Frameworks .&lt;/p&gt;
+</description>
+    </item>
+    <item>
       <title>你的第一篇博客</title>
       <link>http://42.121.114.240//2013/first-page.html</link>
       <pubDate>2012-04-05 12:00:00 +0800</pubDate>
@@ -552,6 +552,88 @@ git push
 &lt;h2&gt;用gor编写博客将会是一件很开心的事,如果有任何意见或建议,欢迎到 &lt;a href=&#34;http://github.com/wendal/gor&#34;&gt;gor的官网&lt;/a&gt; 提交issue&lt;/h2&gt;
 
 &lt;h1&gt;祝你使用愉快&lt;/h1&gt;
+</description>
+    </item>
+    <item>
+      <title>git使用及github</title>
+      <link>http://42.121.114.240//2013/05/30/git_useage_and_github.html</link>
+      <pubDate>2010-05-30 12:00:00 +0800</pubDate>
+      <description>&lt;h1&gt;git使用及github&lt;/h1&gt;
+
+&lt;p&gt;git 和github越来越多人使用，作为一个程序员，应该懂的怎么去用，而我就是个不怎么会用的人，所以我的主管在我刚开始上班的时候就要我去熟悉git那套东西。&lt;/p&gt;
+
+&lt;p&gt;当时我依然不是很懂，但最近开始迷糊的懂了，下面是我这段时间的心得。&lt;/p&gt;
+
+&lt;h2&gt;创建ssh从而能免登访问github。&lt;/h2&gt;
+
+&lt;p&gt;命令&lt;code&gt;ssh-keygen&lt;/code&gt;去创建公钥私钥，如果你只希望访问一个服务器的话，比如github，那么你就放到默认的目录下，并且使用默认的私钥和公钥文件路径，即~/.ssh/id_rsa和~/.ssh/id_rsa.pub，其中id_rsa.pub是公钥文件。我们需要将这个文件里的数据复制并粘贴到github上的ssh key里。从而通过ssh就可以面等访问github了。&lt;/p&gt;
+
+&lt;p&gt;如果你有多个服务器需要访问，比如我们还需要访问gitlab，那么，这个时候，需要~/.ssh/config文件里的配置来区分服务器和ssh秘钥。&lt;/p&gt;
+
+&lt;p&gt;比如我自己的配置为&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Host github.com
+    HostName github.com
+    User taoxiaoseng@gmail.com
+    IdentityFile /Users/Dick/.ssh/github_taoxiaoseng_rsa
+    
+Host gitlab.alibaba-inc.com
+    HostName gitlab.alibaba-inc.com
+    User guodi.ggd@taobao.com
+    IdentityFile /Users/Dick/.ssh/gitlab_rsa
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;也就是说访问github用文件github_taoxiaoseng_rsa，访问gitlab用gitlab_rsa。注意公钥也需要上传到相应的服务器里。&lt;/p&gt;
+
+&lt;p&gt;其实还有些网上也经常说，这里不细提了。比如这些东西&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git config --global user.name &amp;quot;you name&amp;quot;
+git config --global user.email youremail@gmail.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;如何创建git仓库&lt;/h2&gt;
+
+&lt;p&gt;其实每次你创建github里的仓库时，都会告诉你怎么去push，这里还是做下说明，讲我理解的说下。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mkdir helloworld            
+cd helloworld
+git init            创建一个空的数据仓库
+touch readme.md
+git add .           自动判断添加相应文件到git中
+git commit -m &amp;quot;commit first file&amp;quot;           提交并且添加提交日志
+git remote add origin git@github.com:TaoXiaoSeng/test.git 这个最关键，说的是在本地git中添加remote的git地址，并且以origin命名，这样以后我们就不需要每次都写git地址了。实际上他在.git目录里的config添加了一条记录，类似这样的。注意我这里特意加了两个，地址不一样。注意github区分大小写的仓库路径（我的用户名有大小写，如果不完全匹配则认为访问不到了。）。另外注意这里的branch，当你init的时候默认创建的就是master。
+            [remote &amp;quot;origin&amp;quot;]
+                url = git@github.com:taoxiaoseng/test.git
+                fetch = +refs/heads/*:refs/remotes/origin/*
+            [remote &amp;quot;remote&amp;quot;]
+                url = git@github.com:TaoXiaoSeng/test.git
+                fetch = +refs/heads/*:refs/remotes/remote/*git 
+            [branch &amp;quot;master&amp;quot;]
+                remote = remote
+                merge = refs/heads/master
+git push -u origin master           向远程origin对应的仓库里push本地master分支。这里用-u是类似使用upstream的意思?
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;其他git命令&lt;/h2&gt;
+
+&lt;p&gt;git branch      罗列所有分支
+git branch branchname   创建分支
+git checkout branchname     切换分支
+git branch -d branchname    假删除分支，如果是分支是当前正在运行的分支，则删除失败
+git branch -D branchname    真删除分支&lt;/p&gt;
+
+&lt;p&gt;git ls-remote       查看远程版本库中的分支情况
+git push remote :branchname     远程删除分支，注意如果分支是默认分支，则删除失败&lt;/p&gt;
+
+&lt;h2&gt;里程碑管理&lt;/h2&gt;
+
+&lt;p&gt;里程碑及tag，和分支管理类似，保存在.git/refs/tags路径下，引用可能指向一个提交，但也可能是其他类型。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;轻量级里程碑：用git tag &lt;tagname&gt; [&lt;commit&gt;]命令创建，引用直接指向一个提交对象&lt;commit&gt;&lt;/li&gt;
+&lt;li&gt;带说明的里程碑：用git tag -a &lt;tagname&gt; [&lt;commit&gt;] 命令创建，并且在创建时需要提供创建里程碑的说明。Git会创建一个tag对象保存里程碑说明、里程碑的指向、创建里程碑的用户等信息，里程碑引用指向该Tag对象。&lt;/li&gt;
+&lt;li&gt;带签名的里程碑：用git tag -s &lt;tagname&gt; [&lt;commit&gt;] 命令创建。是在带说明的里程碑的基础上引入了PGP签名，保证了所创建的里程碑的完整性和不可拒绝性。&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
     <item>
