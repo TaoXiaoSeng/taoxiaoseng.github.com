@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>你的第一篇博客</title>
+    <title>Core Data</title>
   
-    <meta name="description" content="测试页面">
+    <meta name="description" content="core data">
   
     <meta name="author" content="taoxiaoseng">
 
@@ -80,82 +80,60 @@
 
       <div class="content">
         <div class="page-header">
-  <h1>你的第一篇博客 </h1>
+  <h1>Core Data </h1>
 </div>
 
 <div class="row">
   <div class="span8">
-    <h1>感谢你使用Gor编写博客</h1>
+    <h1>Core Data</h1>
 
-<h2>本文位于 posts/first-blog.md , 你可以任何删掉,修改这个文件</h2>
+<p>1: Core Data
+数据库操作当有insert操作做merge通知的时候会立即触发processPendingChange，但是如果没有insert，而只有delete和update的时候，则只会投放一个processPendingChange但不会立即执行，所以当一个save先update然后delete的时候，merge就出问题了。</p>
 
-<p>文件开头是当前文章的元数据</p>
+<p>工作：
+今天依然是对首页等地方进行性能调优
+改善的点是
+1：计算时间，格式化显示的时候，ios相对比较耗时，此时如果对性能有一定要求的话，还是考虑用c的api实现一把，另外stringWithFormat在对性能有一定要求的地方也应该尽量考虑用C函数拼接好后再一次搞定。
+经过函数的重写，该函数性能提升2.4倍</p>
 
-<ol>
-<li>date为自动生成, 当然,你可以修改,这是你的自由</li>
-<li>permalink 可以是固定地址,也可以由gor为你自动生成</li>
-<li>categories 就是分类, 可以多个</li>
-<li>tags 同理,多个标签也是很常见的</li>
-</ol>
+<p>2：core data数据库fetch的时候，如果你只为了查询一个对象，而且这个对象之前已经在当前contxt上的话，那么fetch操作依然是一个耗时的操作，原因应该是由于core data没有暴露出来的key，那么你查询数据库中的条件理论上查询出来的都是一个数组，而且及时表是一个空表，core data的一次fetch依然会尝试查询数据库一把。也就造成了性能的直接下降。
+但是据说如果你是用了objectid去查询的话就快一些，因为你的对象已经在内存中了，并且一个managedObject有个fault属性，如果你查询的objectId对应的对象的fault属性不是true的话，你的查询应该就不会倒数据库里在查询呢一次。</p>
 
-<p>请确保文件使用UTF8 without BOM编码</p>
+<p>3：个人感觉如果需要使用core data，应该尽可能的不要直接完全依然coredata的managedObject对象，一是可以一定程度解耦，不然一旦更换core data的机制，你就代码里也改动很大了。</p>
 
-<h2>你可以通过执行下面的语句来新建一篇博客:</h2>
+<p>4：c函数里（t m） 结构体和和time_t可以通过mktime，gmtime和localtime去互相转化，注意localtime是当地时区的时间。获取的time_t都是从1970年开始到现在的时间。另外注意的是t m里tm_mon是从0开始算起的月份，所以正常情况下你需要进行+1处理表示正常的月份。
+另外注意如果是考虑到多线程的话，不要使用localtime，这个是线程不安全的，应该使用localtime_r等接口。
+struct tm localNow;
+time_t rawtime = (time_t)offsetTimeInterval;
+localtime_r(&amp;rawtime, &amp;localNow);
+这样就填充好了一个包含年月日时分秒的数据结构了。</p>
 
-<pre><code>gor post 文章标题
-</code></pre>
+<p>5：网上一些关于性能调优的要点记录：</p>
 
-<h2>编译你的博客,并预览之</h2>
+<ul>
+<li>在Image Views中调整图片大小
+如果要在<code>UIImageView</code>中显示一个来自bundle的图片，你应保证图片的大小和UIImageView的大小相同。在运行中缩放图片是很耗费资源的，特别是<code>UIImageView</code>嵌套在<code>UIScrollView</code>中的情况下。</li>
+</ul>
 
-<pre><code>gor compile #编译
-gor http
-</code></pre>
+<p>如果图片是从远端服务加载的你不能控制图片大小，比如在下载前调整到合适大小的话，你可以在下载完成后，最好是用background thread，缩放一次，然后在UIImageView中使用缩放后的图片。</p>
 
-<p>然后打开你的浏览器,访问 <a href="http://127.0.0.1:8080">http://127.0.0.1:8080</a> 来预览</p>
-
-<h2>你将使用Markdown来编写博客</h2>
-
-<p><a href="http://wowubuntu.com/markdown/">Markdown 语法中文版</a> 能让你快速入门其语法</p>
-
-<p>相信<a href="http://markdownpad.com">MarkdownPad</a>或<a href="http://code.google.com/p/liteide/">liteide</a>会是你的编写博客的好帮手</p>
-
-<h2>如果你打算部署到github的pages上</h2>
-
-<ol>
-<li>申请github帐户</li>
-<li>新建一个库 username.github.com 即你的用户名命名的地址</li>
-<li>将compiled目录,作为根路径,提交上去github.com上</li>
-<li>稍等几分钟, 你即可通过 <a href="http://username.github.com">http://username.github.com</a> 访问到</li>
-</ol>
-
-<h2>附上git教程 <a href="http://gitbook.liuhui998.com/">GitBook中文版</a></h2>
-
-<p>一般来说,你只需要几个简单的git命令就足以应付大部分需求(仅示例)</p>
-
-<pre><code>git clone git://github.com/wendal/wendal.net.git
-git add -A
-git commit -m &quot;...&quot;
-git pull
-git push
-</code></pre>
-
-<h2>用gor编写博客将会是一件很开心的事,如果有任何意见或建议,欢迎到 <a href="http://github.com/wendal/gor">gor的官网</a> 提交issue</h2>
-
-<h1>祝你使用愉快</h1>
+<p>非工作：
+nodejs摸索出package.json为什么老是解析失败。。。
+不知道为什么，version版本信息必须是0.0.1这种类型的，如果写成1.0则失败。。。</p>
 
     <hr>
     <div class="pagination">
       <ul>
         <ul>
           
-            <li class="prev"><a href="/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc[V1.0].html" title="关于如何使用appledoc生成XCode能读取的文档的完整版">&larr; Previous</a></li>
+            <li class="prev"><a href="/2013/08/12/how_to_use_async_in_nodejs.html" title="Nodejs中的async的使用">&larr; Previous</a></li>
           
           
 
             <li><a href="/archive">Archive</a></li>
 
           
-            <li class="next"><a href="/2013/04/22/detail_analyse_about_ftp.html" title="FTP协议完全详解">Next &rarr;</a></li>
+            <li class="next"><a href="/2013/04/06/more-about-markdown.html" title="more about markdown">Next &rarr;</a></li>
           
           
         </ul>
@@ -181,13 +159,13 @@ git push
   
   <div class="span4">
     <h4>Published</h4>
-    <div class="date"><span>2012-04-05</span></div>
+    <div class="date"><span>2013-07-11</span></div>
     <br>
     <h4>Categories</h4>
     <ul class="tag_box">
     
       <li>
-  <a href="/categories/#gor-ref">gor <span>1</span></a>
+  <a href="/categories/#coredata-ref">coredata <span>1</span></a>
 </li>
     
     </ul>
@@ -196,7 +174,7 @@ git push
     <ul class="tag_box">
     
       <li>
-  <a href="/tags/#gor-ref">gor <span>1</span></a>
+  <a href="/tags/#coredata-ref">coredata <span>1</span></a>
 </li>
     
     </ul>

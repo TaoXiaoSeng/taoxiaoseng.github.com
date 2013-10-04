@@ -4,6 +4,36 @@
 		<loc>http://42.121.114.240//</loc>
 	</url>
 	<url>
+		<loc>http://42.121.114.240//2013/10/04/manytips.html</loc>
+		<lastmod>2013-10-04</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://42.121.114.240//2013/10/01/coretext.html</loc>
+		<lastmod>2013-10-01</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://42.121.114.240//2013/09/21/iosDevTip.html</loc>
+		<lastmod>2013-09-21</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://42.121.114.240//2013/08/12/tips_when_install_node_modules.html</loc>
+		<lastmod>2013-08-12</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://42.121.114.240//2013/08/12/how_to_use_async_in_nodejs.html</loc>
+		<lastmod>2013-08-12</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://42.121.114.240//2013/08/12/core_data.html</loc>
+		<lastmod>2013-07-11</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
 		<loc>http://42.121.114.240//2013/04/06/more-about-markdown.html</loc>
 		<lastmod>2013-06-05</lastmod>
 		<changefreq>weekly</changefreq>
@@ -34,12 +64,12 @@
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
-		<loc>http://42.121.114.240//2013/04/06/create-docset-used-by-xcode-the-tool-appledoc[V1.0].html</loc>
+		<loc>http://42.121.114.240//2013/04/06/create-docset-used-by-xcode-the-tool-appledoc.html</loc>
 		<lastmod>2013-04-06</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
-		<loc>http://42.121.114.240//2013/04/06/create-docset-used-by-xcode-the-tool-appledoc.html</loc>
+		<loc>http://42.121.114.240//2013/04/06/create-docset-used-by-xcode-the-tool-appledoc[V1.0].html</loc>
 		<lastmod>2013-04-06</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>

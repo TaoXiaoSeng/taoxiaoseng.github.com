@@ -3,7 +3,124 @@
   <channel>
     <title>淘小僧</title>
     <link>http://42.121.114.240/</link>
-    <pubDate>2013-06-05 01:02:53 +0800</pubDate>
+    <pubDate>2013-10-04 01:11:02 +0800</pubDate>
+    <item>
+      <title>many tips</title>
+      <link>http://42.121.114.240//2013/10/04/manytips.html</link>
+      <pubDate>2013-10-04 12:00:00 +0800</pubDate>
+      <description>&lt;h1&gt;Tips&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;问：[centos]Can&amp;rsquo;t ssh to server with root account because of gitosis?
+答：Just remove /root/.ssh/authorized_keys&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    <item>
+      <title>Core Text</title>
+      <link>http://42.121.114.240//2013/10/01/coretext.html</link>
+      <pubDate>2013-10-01 12:00:00 +0800</pubDate>
+      <description>&lt;p&gt;#Core Text&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Here you need to create a path which bounds the area where you will be drawing text. Core Text on the Mac supports different shapes like rectangles and circles, but for the moment iOS supports only rectangular shape for drawing with Core Text. In this simple example, you’ll use the entire view bounds as the rectangle where you will be drawing by creating a CGPath reference from self.bounds.&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    <item>
+      <title>IOS开发</title>
+      <link>http://42.121.114.240//2013/09/21/iosDevTip.html</link>
+      <pubDate>2013-09-21 12:00:00 +0800</pubDate>
+      <description>&lt;p&gt;app打开默认是混合音模式
+开始录音的时候如果选择的模式是playandrecord，则也能支持播放。&lt;/p&gt;
+
+&lt;p&gt;ios7系统里跑ios6兼容模式，删除按钮的位置有变化&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>tips_when_install_node_modules</title>
+      <link>http://42.121.114.240//2013/08/12/tips_when_install_node_modules.html</link>
+      <pubDate>2013-08-12 12:00:00 +0800</pubDate>
+      <description>&lt;h1&gt;安装自己的node代码及安装node_modules的注意&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;package.json里的版本号似乎需要1.0.1这种类似的格式&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;将你的代码打包后，你需要在其他未安装的服务器上运行时，则你可能需要临时安装你的node相关的node_module，此时你可以不要将你原来的代码里的nodemoudle带过来，而是通过npm install安装node module模块，当然最好是要求你的node module里的模块的版本和你开发测试的版本一致。否则你可能会出现异常的情况。所以注意修改设置你的package.json里的相关依赖模块的版本号&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    <item>
+      <title>Nodejs中的async的使用</title>
+      <link>http://42.121.114.240//2013/08/12/how_to_use_async_in_nodejs.html</link>
+      <pubDate>2013-08-12 12:00:00 +0800</pubDate>
+      <description>&lt;h1&gt;Nodejs中的async的使用&lt;/h1&gt;
+
+&lt;p&gt;Nodejs中最最感觉不舒服的是因为全异步引起的代码层级变的更大而导致阅读更加麻烦。
+所以解决因为nodejs的这个问题，我按照前人的提示选择了async的框架&lt;/p&gt;
+
+&lt;p&gt;其实这个框架里我更多的是使用async的auto方法
+因为这个方法可以并行，串行，按照我写的规则去执行一些异步方法。&lt;/p&gt;
+
+&lt;p&gt;比如可以这样
+async.auto({
+     task1:function(cb, paramData){
+     },
+     task2:function(cb, paramData){
+     },
+     task3:[&amp;lsquo;task1&amp;rsquo;,&amp;lsquo;task2&amp;rsquo;,function(cb, paramData){
+     }
+     task4:[&amp;lsquo;task3&amp;rsquo;,function(cb, paramData){
+     }
+},function(err, result){
+});&lt;/p&gt;
+
+&lt;p&gt;这个流程最后跑的是task1和task2并发执行，执行完后，task3执行，然后再task4执行，最终完成后执行最下面的function函数，如果中途的cb中的参数不为null，则直接退出上面的task流程，直接执行最后的function函数。&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Core Data</title>
+      <link>http://42.121.114.240//2013/08/12/core_data.html</link>
+      <pubDate>2013-07-11 12:00:00 +0800</pubDate>
+      <description>&lt;h1&gt;Core Data&lt;/h1&gt;
+
+&lt;p&gt;1: Core Data
+数据库操作当有insert操作做merge通知的时候会立即触发processPendingChange，但是如果没有insert，而只有delete和update的时候，则只会投放一个processPendingChange但不会立即执行，所以当一个save先update然后delete的时候，merge就出问题了。&lt;/p&gt;
+
+&lt;p&gt;工作：
+今天依然是对首页等地方进行性能调优
+改善的点是
+1：计算时间，格式化显示的时候，ios相对比较耗时，此时如果对性能有一定要求的话，还是考虑用c的api实现一把，另外stringWithFormat在对性能有一定要求的地方也应该尽量考虑用C函数拼接好后再一次搞定。
+经过函数的重写，该函数性能提升2.4倍&lt;/p&gt;
+
+&lt;p&gt;2：core data数据库fetch的时候，如果你只为了查询一个对象，而且这个对象之前已经在当前contxt上的话，那么fetch操作依然是一个耗时的操作，原因应该是由于core data没有暴露出来的key，那么你查询数据库中的条件理论上查询出来的都是一个数组，而且及时表是一个空表，core data的一次fetch依然会尝试查询数据库一把。也就造成了性能的直接下降。
+但是据说如果你是用了objectid去查询的话就快一些，因为你的对象已经在内存中了，并且一个managedObject有个fault属性，如果你查询的objectId对应的对象的fault属性不是true的话，你的查询应该就不会倒数据库里在查询呢一次。&lt;/p&gt;
+
+&lt;p&gt;3：个人感觉如果需要使用core data，应该尽可能的不要直接完全依然coredata的managedObject对象，一是可以一定程度解耦，不然一旦更换core data的机制，你就代码里也改动很大了。&lt;/p&gt;
+
+&lt;p&gt;4：c函数里（t m） 结构体和和time_t可以通过mktime，gmtime和localtime去互相转化，注意localtime是当地时区的时间。获取的time_t都是从1970年开始到现在的时间。另外注意的是t m里tm_mon是从0开始算起的月份，所以正常情况下你需要进行+1处理表示正常的月份。
+另外注意如果是考虑到多线程的话，不要使用localtime，这个是线程不安全的，应该使用localtime_r等接口。
+struct tm localNow;
+time_t rawtime = (time_t)offsetTimeInterval;
+localtime_r(&amp;amp;rawtime, &amp;amp;localNow);
+这样就填充好了一个包含年月日时分秒的数据结构了。&lt;/p&gt;
+
+&lt;p&gt;5：网上一些关于性能调优的要点记录：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;在Image Views中调整图片大小
+如果要在&lt;code&gt;UIImageView&lt;/code&gt;中显示一个来自bundle的图片，你应保证图片的大小和UIImageView的大小相同。在运行中缩放图片是很耗费资源的，特别是&lt;code&gt;UIImageView&lt;/code&gt;嵌套在&lt;code&gt;UIScrollView&lt;/code&gt;中的情况下。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;如果图片是从远端服务加载的你不能控制图片大小，比如在下载前调整到合适大小的话，你可以在下载完成后，最好是用background thread，缩放一次，然后在UIImageView中使用缩放后的图片。&lt;/p&gt;
+
+&lt;p&gt;非工作：
+nodejs摸索出package.json为什么老是解析失败。。。
+不知道为什么，version版本信息必须是0.0.1这种类型的，如果写成1.0则失败。。。&lt;/p&gt;
+</description>
+    </item>
     <item>
       <title>more about markdown</title>
       <link>http://42.121.114.240//2013/04/06/more-about-markdown.html</link>
@@ -480,6 +597,15 @@ void _XLog_getFileName(const char *path, char *name)
 </description>
     </item>
     <item>
+      <title>关于如何使用appledoc生成XCode能读取的文档的命令</title>
+      <link>http://42.121.114.240//2013/04/06/create-docset-used-by-xcode-the-tool-appledoc.html</link>
+      <pubDate>2013-04-06 12:00:00 +0800</pubDate>
+      <description>&lt;p&gt;messenger文档生成命令&lt;/p&gt;
+
+&lt;p&gt;appledoc &amp;ndash;project-name WXMessengerDoc &amp;ndash;project-company &amp;ldquo;alibaba-inc&amp;rdquo; &amp;ndash;company-id com.alibaba-inc.WXMessenger &amp;ndash;output ./WXMessengerDoc &amp;ndash;ignore ./Three20 &amp;ndash;ignore ./ASIHttpRequest &amp;ndash;ignore ./script &amp;ndash;ignore ./tools &amp;ndash;ignore ./docs &amp;ndash;ignore ./Messenger/JSON &amp;ndash;ignore ./Messenger/JSONKit.h &amp;ndash;ignore ./Messenger/JSONKit.m &amp;ndash;ignore ./Messenger/PopverView &amp;ndash;ignore ./Messenger/RichText &amp;ndash;ignore /Messenger/SDWebData &amp;ndash;ignore ./Messenger/SFHFKeychainUtils &amp;ndash;ignore ./Messenger/TouchJSON &amp;ndash;ignore ./Messenger/weak_ref &amp;ndash;ignore ./Messenger/zh-Hans.lproj &amp;ndash;ignore ./Messenger/Frameworks .&lt;/p&gt;
+</description>
+    </item>
+    <item>
       <title>关于如何使用appledoc生成XCode能读取的文档的完整版</title>
       <link>http://42.121.114.240//2013/04/06/create-docset-used-by-xcode-the-tool-appledoc[V1.0].html</link>
       <pubDate>2013-04-06 12:00:00 +0800</pubDate>
@@ -695,15 +821,6 @@ exit 0
 
 &lt;p&gt;###&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;     文档效果     &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;
 &lt;img src=&#34;http://yunpan.alibaba-inc.com/share/scan.do?info=8H2tK3INh&amp;pInfo=8H2tK3INh&amp;app_name=&#34;&gt;&lt;/p&gt;
-</description>
-    </item>
-    <item>
-      <title>关于如何使用appledoc生成XCode能读取的文档的命令</title>
-      <link>http://42.121.114.240//2013/04/06/create-docset-used-by-xcode-the-tool-appledoc.html</link>
-      <pubDate>2013-04-06 12:00:00 +0800</pubDate>
-      <description>&lt;p&gt;messenger文档生成命令&lt;/p&gt;
-
-&lt;p&gt;appledoc &amp;ndash;project-name WXMessengerDoc &amp;ndash;project-company &amp;ldquo;alibaba-inc&amp;rdquo; &amp;ndash;company-id com.alibaba-inc.WXMessenger &amp;ndash;output ./WXMessengerDoc &amp;ndash;ignore ./Three20 &amp;ndash;ignore ./ASIHttpRequest &amp;ndash;ignore ./script &amp;ndash;ignore ./tools &amp;ndash;ignore ./docs &amp;ndash;ignore ./Messenger/JSON &amp;ndash;ignore ./Messenger/JSONKit.h &amp;ndash;ignore ./Messenger/JSONKit.m &amp;ndash;ignore ./Messenger/PopverView &amp;ndash;ignore ./Messenger/RichText &amp;ndash;ignore /Messenger/SDWebData &amp;ndash;ignore ./Messenger/SFHFKeychainUtils &amp;ndash;ignore ./Messenger/TouchJSON &amp;ndash;ignore ./Messenger/weak_ref &amp;ndash;ignore ./Messenger/zh-Hans.lproj &amp;ndash;ignore ./Messenger/Frameworks .&lt;/p&gt;
 </description>
     </item>
     <item>
