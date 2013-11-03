@@ -3,7 +3,7 @@
   <channel>
     <title>淘小僧</title>
     <link>http://42.121.114.240/</link>
-    <pubDate>2013-10-04 01:11:02 +0800</pubDate>
+    <pubDate>2013-11-03 12:19:57 +0800</pubDate>
     <item>
       <title>many tips</title>
       <link>http://42.121.114.240//2013/10/04/manytips.html</link>
@@ -20,7 +20,7 @@
       <title>Core Text</title>
       <link>http://42.121.114.240//2013/10/01/coretext.html</link>
       <pubDate>2013-10-01 12:00:00 +0800</pubDate>
-      <description>&lt;p&gt;#Core Text&lt;/p&gt;
+      <description>&lt;h1&gt;Core Text&lt;/h1&gt;
 
 &lt;ol&gt;
 &lt;li&gt;Here you need to create a path which bounds the area where you will be drawing text. Core Text on the Mac supports different shapes like rectangles and circles, but for the moment iOS supports only rectangular shape for drawing with Core Text. In this simple example, you’ll use the entire view bounds as the rectangle where you will be drawing by creating a CGPath reference from self.bounds.&lt;/li&gt;
