@@ -3,7 +3,27 @@
   <channel>
     <title>淘小僧</title>
     <link>http://www.codesimplelife.com</link>
-    <pubDate>2014-01-15 01:15:40 +0800</pubDate>
+    <pubDate>2014-02-10 02:48:28 +0800</pubDate>
+    <item>
+      <title>如果处理PNG图片，从而降低IPA包大小以及提高图片使用时的性能</title>
+      <link>http://www.codesimplelife.com/2014/02/14/compress_png_file_to_decrease_ipa_size.html</link>
+      <pubDate>2014-02-14 12:00:00 +0800</pubDate>
+      <description>&lt;h2&gt;降低包大小&lt;/h2&gt;
+
+&lt;p&gt;1：使用图片压缩工具ImageOptm来对图片进行压缩，该工具会使用多种算法挑选压缩后大小最小的一张图输出。
+2：可以考虑使用jpg图片
+3：如果手工自己压缩图片，则最好不要关闭xcode工程里自带的png图片压缩选项，即targets-&amp;gt; Build Settings-&amp;gt;Compress PNG Files设置为NO，否则可能引起一些已经被手动压缩过的图片经过xcode处理后，再次变大了一些。注意这个选项只适用于png图片
+4：如果一张图可以通过拉伸等处理得到最后的效果，可以考虑切图的时候以九宫格的方式切小图。&lt;/p&gt;
+
+&lt;h2&gt;提高图片使用性能：&lt;/h2&gt;
+
+&lt;p&gt;1：在图片质量可以接受的情况下，图片越小越好
+2：如果不要使用透明度，则可以考虑图片不带有alpha通道。
+3：图片的大小最好等于UI显示时的尺寸，否则图片缩放处理会消耗一定的性能（这里涉及了矩阵运算）
+4：图片draw的时候，最好可以设置draw的时候图片不透明。
+5：显示图片的时候最好像素对齐，能降低抗锯齿的计算。&lt;/p&gt;
+</description>
+    </item>
     <item>
       <title>python小计</title>
       <link>http://www.codesimplelife.com/2013/12/12/record_python_tips.html</link>
@@ -229,56 +249,6 @@ hijklmn&lt;/p&gt;
 </description>
     </item>
     <item>
-      <title>涨姿势-NSCache</title>
-      <link>http://www.codesimplelife.com/2013/05/30/about_nscache.html</link>
-      <pubDate>2013-05-30 12:00:00 +0800</pubDate>
-      <description>&lt;h1&gt;NSCache&lt;/h1&gt;
-
-&lt;p&gt;他的用法很简单，基本等效于NSMutableDictionary，只不过他不保证cache里的对象永远存在，也许在低内存警告时会释放掉部分对象，所以如果你的程序里如果有可以重复创建的对象需要保存时，可以考虑使用这个类。&lt;/p&gt;
-
-&lt;p&gt;以下是转载来的。
-NSCache 是iOS4以后引入的一个方便的缓存某些object的类。它的使用方法与NSMutableDictionary很相似，但是他会在内存吃紧的时候自动释放某些object。而且不用考虑线程安全的问题。具体的可以参见官方文档的描述。以下是stackoverflow里面一个比较不错的应用例子：&lt;/p&gt;
-
-&lt;p&gt;You use it the same way you would use NSMutableDictionary. The difference is that whenNSCache detects excessive memory pressure (i.e. it&amp;rsquo;s caching too many values) it will release some of those values to make room.&lt;/p&gt;
-
-&lt;p&gt;If you can recreate those values at runtime (by downloading from the Internet, by doing calculations, whatever) then NSCache may suit your needs. If the data cannot be recreated (e.g. it&amp;rsquo;s user input, it is time-sensitive, etc.) then you should not store it in an NSCache because it will be destroyed there.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;You use it the same way you would use NSMutableDictionary. The difference is that whenNSCache detects excessive memory pressure (i.e. it&#39;s caching too many values) it will release some of those values to make room.
-
-If you can recreate those values at runtime (by downloading from the Internet, by doing calculations, whatever) then NSCache may suit your needs. If the data cannot be recreated (e.g. it&#39;s user input, it is time-sensitive, etc.) then you should not store it in an NSCache because it will be destroyed there.
-
-Example, not taking thread safety into account:
-
-// Your cache should have a lifetime beyond the method or handful of methods
-// that use it. For example, you could make it a field of your application
-// delegate, or of your view controller, or something like that. Up to you.
-NSCache *myCache = ...;
-NSAssert(myCache != nil, @&amp;quot;cache object is missing&amp;quot;);
-
-// Try to get the existing object out of the cache, if it&#39;s there.
-Widget *myWidget = [myCache objectForKey: @&amp;quot;Important Widget&amp;quot;];
-if (!myWidget) {
-    // It&#39;s not in the cache yet, or has been removed. We have to
-    // create it. Presumably, creation is an expensive operation,
-    // which is why we cache the results. If creation is cheap, we
-    // probably don&#39;t need to bother caching it. That&#39;s a design
-    // decision you&#39;ll have to make yourself.
-    myWidget = [[[Widget alloc] initExpensively] autorelease];
-
-    // Put it in the cache. It will stay there as long as the OS
-    // has room for it. It may be removed at any time, however,
-    // at which point we&#39;ll have to create it again on next use.
-    [myCache setObject: myWidget forKey: @&amp;quot;Important Widget&amp;quot;];
-}
-
-// myWidget should exist now either way. Use it here.
-if (myWidget) {
-    [myWidget runOrWhatever];
-}
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    <item>
       <title>git使用及github</title>
       <link>http://www.codesimplelife.com/2013/05/30/git_useage_and_github.html</link>
       <pubDate>2013-05-30 12:00:00 +0800</pubDate>
@@ -358,6 +328,56 @@ git push remote :branchname     远程删除分支，注意如果分支是默认
 &lt;li&gt;带说明的里程碑：用git tag -a &lt;tagname&gt; [&lt;commit&gt;] 命令创建，并且在创建时需要提供创建里程碑的说明。Git会创建一个tag对象保存里程碑说明、里程碑的指向、创建里程碑的用户等信息，里程碑引用指向该Tag对象。&lt;/li&gt;
 &lt;li&gt;带签名的里程碑：用git tag -s &lt;tagname&gt; [&lt;commit&gt;] 命令创建。是在带说明的里程碑的基础上引入了PGP签名，保证了所创建的里程碑的完整性和不可拒绝性。&lt;/li&gt;
 &lt;/ul&gt;
+</description>
+    </item>
+    <item>
+      <title>涨姿势-NSCache</title>
+      <link>http://www.codesimplelife.com/2013/05/30/about_nscache.html</link>
+      <pubDate>2013-05-30 12:00:00 +0800</pubDate>
+      <description>&lt;h1&gt;NSCache&lt;/h1&gt;
+
+&lt;p&gt;他的用法很简单，基本等效于NSMutableDictionary，只不过他不保证cache里的对象永远存在，也许在低内存警告时会释放掉部分对象，所以如果你的程序里如果有可以重复创建的对象需要保存时，可以考虑使用这个类。&lt;/p&gt;
+
+&lt;p&gt;以下是转载来的。
+NSCache 是iOS4以后引入的一个方便的缓存某些object的类。它的使用方法与NSMutableDictionary很相似，但是他会在内存吃紧的时候自动释放某些object。而且不用考虑线程安全的问题。具体的可以参见官方文档的描述。以下是stackoverflow里面一个比较不错的应用例子：&lt;/p&gt;
+
+&lt;p&gt;You use it the same way you would use NSMutableDictionary. The difference is that whenNSCache detects excessive memory pressure (i.e. it&amp;rsquo;s caching too many values) it will release some of those values to make room.&lt;/p&gt;
+
+&lt;p&gt;If you can recreate those values at runtime (by downloading from the Internet, by doing calculations, whatever) then NSCache may suit your needs. If the data cannot be recreated (e.g. it&amp;rsquo;s user input, it is time-sensitive, etc.) then you should not store it in an NSCache because it will be destroyed there.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;You use it the same way you would use NSMutableDictionary. The difference is that whenNSCache detects excessive memory pressure (i.e. it&#39;s caching too many values) it will release some of those values to make room.
+
+If you can recreate those values at runtime (by downloading from the Internet, by doing calculations, whatever) then NSCache may suit your needs. If the data cannot be recreated (e.g. it&#39;s user input, it is time-sensitive, etc.) then you should not store it in an NSCache because it will be destroyed there.
+
+Example, not taking thread safety into account:
+
+// Your cache should have a lifetime beyond the method or handful of methods
+// that use it. For example, you could make it a field of your application
+// delegate, or of your view controller, or something like that. Up to you.
+NSCache *myCache = ...;
+NSAssert(myCache != nil, @&amp;quot;cache object is missing&amp;quot;);
+
+// Try to get the existing object out of the cache, if it&#39;s there.
+Widget *myWidget = [myCache objectForKey: @&amp;quot;Important Widget&amp;quot;];
+if (!myWidget) {
+    // It&#39;s not in the cache yet, or has been removed. We have to
+    // create it. Presumably, creation is an expensive operation,
+    // which is why we cache the results. If creation is cheap, we
+    // probably don&#39;t need to bother caching it. That&#39;s a design
+    // decision you&#39;ll have to make yourself.
+    myWidget = [[[Widget alloc] initExpensively] autorelease];
+
+    // Put it in the cache. It will stay there as long as the OS
+    // has room for it. It may be removed at any time, however,
+    // at which point we&#39;ll have to create it again on next use.
+    [myCache setObject: myWidget forKey: @&amp;quot;Important Widget&amp;quot;];
+}
+
+// myWidget should exist now either way. Use it here.
+if (myWidget) {
+    [myWidget runOrWhatever];
+}
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     <item>
@@ -621,15 +641,6 @@ void _XLog_getFileName(const char *path, char *name)
 </description>
     </item>
     <item>
-      <title>关于如何使用appledoc生成XCode能读取的文档的命令</title>
-      <link>http://www.codesimplelife.com/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc.html</link>
-      <pubDate>2013-04-06 12:00:00 +0800</pubDate>
-      <description>&lt;p&gt;messenger文档生成命令&lt;/p&gt;
-
-&lt;p&gt;appledoc &amp;ndash;project-name WXMessengerDoc &amp;ndash;project-company &amp;ldquo;alibaba-inc&amp;rdquo; &amp;ndash;company-id com.alibaba-inc.WXMessenger &amp;ndash;output ./WXMessengerDoc &amp;ndash;ignore ./Three20 &amp;ndash;ignore ./ASIHttpRequest &amp;ndash;ignore ./script &amp;ndash;ignore ./tools &amp;ndash;ignore ./docs &amp;ndash;ignore ./Messenger/JSON &amp;ndash;ignore ./Messenger/JSONKit.h &amp;ndash;ignore ./Messenger/JSONKit.m &amp;ndash;ignore ./Messenger/PopverView &amp;ndash;ignore ./Messenger/RichText &amp;ndash;ignore /Messenger/SDWebData &amp;ndash;ignore ./Messenger/SFHFKeychainUtils &amp;ndash;ignore ./Messenger/TouchJSON &amp;ndash;ignore ./Messenger/weak_ref &amp;ndash;ignore ./Messenger/zh-Hans.lproj &amp;ndash;ignore ./Messenger/Frameworks .&lt;/p&gt;
-</description>
-    </item>
-    <item>
       <title>关于如何使用appledoc生成XCode能读取的文档的完整版</title>
       <link>http://www.codesimplelife.com/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc[V1.0].html</link>
       <pubDate>2013-04-06 12:00:00 +0800</pubDate>
@@ -845,6 +856,15 @@ exit 0
 
 &lt;p&gt;###&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;     文档效果     &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;
 &lt;img src=&#34;http://yunpan.alibaba-inc.com/share/scan.do?info=8H2tK3INh&amp;pInfo=8H2tK3INh&amp;app_name=&#34;&gt;&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>关于如何使用appledoc生成XCode能读取的文档的命令</title>
+      <link>http://www.codesimplelife.com/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc.html</link>
+      <pubDate>2013-04-06 12:00:00 +0800</pubDate>
+      <description>&lt;p&gt;messenger文档生成命令&lt;/p&gt;
+
+&lt;p&gt;appledoc &amp;ndash;project-name WXMessengerDoc &amp;ndash;project-company &amp;ldquo;alibaba-inc&amp;rdquo; &amp;ndash;company-id com.alibaba-inc.WXMessenger &amp;ndash;output ./WXMessengerDoc &amp;ndash;ignore ./Three20 &amp;ndash;ignore ./ASIHttpRequest &amp;ndash;ignore ./script &amp;ndash;ignore ./tools &amp;ndash;ignore ./docs &amp;ndash;ignore ./Messenger/JSON &amp;ndash;ignore ./Messenger/JSONKit.h &amp;ndash;ignore ./Messenger/JSONKit.m &amp;ndash;ignore ./Messenger/PopverView &amp;ndash;ignore ./Messenger/RichText &amp;ndash;ignore /Messenger/SDWebData &amp;ndash;ignore ./Messenger/SFHFKeychainUtils &amp;ndash;ignore ./Messenger/TouchJSON &amp;ndash;ignore ./Messenger/weak_ref &amp;ndash;ignore ./Messenger/zh-Hans.lproj &amp;ndash;ignore ./Messenger/Frameworks .&lt;/p&gt;
 </description>
     </item>
     <item>

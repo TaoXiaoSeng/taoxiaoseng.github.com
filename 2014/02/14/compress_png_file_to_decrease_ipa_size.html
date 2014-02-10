@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>python小计</title>
+    <title>如果处理PNG图片，从而降低IPA包大小以及提高图片使用时的性能</title>
   
-    <meta name="description" content="python一些简单命令记录">
+    <meta name="description" content="如果通过压缩PNG图片，降低ipa包的大小。">
   
     <meta name="author" content="taoxiaoseng">
 
@@ -80,43 +80,39 @@
 
       <div class="content">
         <div class="page-header">
-  <h1>python小计 </h1>
+  <h1>如果处理PNG图片，从而降低IPA包大小以及提高图片使用时的性能 </h1>
 </div>
 
 <div class="row">
   <div class="span8">
-    <h1>Python</h1>
+    <h2>降低包大小</h2>
 
-<h2>记录</h2>
+<p>1：使用图片压缩工具ImageOptm来对图片进行压缩，该工具会使用多种算法挑选压缩后大小最小的一张图输出。
+2：可以考虑使用jpg图片
+3：如果手工自己压缩图片，则最好不要关闭xcode工程里自带的png图片压缩选项，即targets-&gt; Build Settings-&gt;Compress PNG Files设置为NO，否则可能引起一些已经被手动压缩过的图片经过xcode处理后，再次变大了一些。注意这个选项只适用于png图片
+4：如果一张图可以通过拉伸等处理得到最后的效果，可以考虑切图的时候以九宫格的方式切小图。</p>
 
-<p>os.walk(dir)                遍历文件夹里的文件
-str.rfind(&ldquo;abc&rdquo;)            反向查找abc的位置，返回pos
-str.replace（&rdquo;kk&rdquo;, &ldquo;aa&rdquo;） 替换kk为aa
-cmp(a,b)                    比较字符串a和b
-os.path.basename(path)      #返回文件名
-os.path.exists(path)        #路径存在则返回True,路径损坏返回False
-os.path.isfile(path)        #判断路径是否为文件
-os.path.isdir(path)         #判断路径是否为目录
-os.path.islink(path)        #判断路径是否为链接
-os.path.splitext(path)      #分割路径，返回路径名和文件扩展名的元组
-                            &gt;&gt;&gt; os.path.splitext(&lsquo;file.1.2&rsquo;)
-                            (&lsquo;file.1&rsquo;, &lsquo;.2&rsquo;)
-os.remove(file)             #删除文件
-os.rename(fromFile, toFile)#移动文件</p>
+<h2>提高图片使用性能：</h2>
+
+<p>1：在图片质量可以接受的情况下，图片越小越好
+2：如果不要使用透明度，则可以考虑图片不带有alpha通道。
+3：图片的大小最好等于UI显示时的尺寸，否则图片缩放处理会消耗一定的性能（这里涉及了矩阵运算）
+4：图片draw的时候，最好可以设置draw的时候图片不透明。
+5：显示图片的时候最好像素对齐，能降低抗锯齿的计算。</p>
 
     <hr>
     <div class="pagination">
       <ul>
         <ul>
           
-            <li class="prev"><a href="/2014/02/14/compress_png_file_to_decrease_ipa_size.html" title="如果处理PNG图片，从而降低IPA包大小以及提高图片使用时的性能">&larr; Previous</a></li>
           
+            <li class="prev disabled"><a>&larr; Previous</a></li>
           
 
             <li><a href="/archive">Archive</a></li>
 
           
-            <li class="next"><a href="/2013/10/04/manytips.html" title="many tips">Next &rarr;</a></li>
+            <li class="next"><a href="/2013/12/12/record_python_tips.html" title="python小计">Next &rarr;</a></li>
           
           
         </ul>
@@ -142,13 +138,13 @@ os.rename(fromFile, toFile)#移动文件</p>
   
   <div class="span4">
     <h4>Published</h4>
-    <div class="date"><span>2013-12-12</span></div>
+    <div class="date"><span>2014-02-14</span></div>
     <br>
     <h4>Categories</h4>
     <ul class="tag_box">
     
       <li>
-  <a href="/categories/#python-ref">python <span>1</span></a>
+  <a href="/categories/#xcode-ref">xcode <span>1</span></a>
 </li>
     
     </ul>
@@ -157,7 +153,7 @@ os.rename(fromFile, toFile)#移动文件</p>
     <ul class="tag_box">
     
       <li>
-  <a href="/tags/#python-ref">python <span>1</span></a>
+  <a href="/tags/#xcode-ref">xcode <span>1</span></a>
 </li>
     
     </ul>

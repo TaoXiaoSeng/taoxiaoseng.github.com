@@ -4,6 +4,11 @@
 		<loc>http://www.codesimplelife.com/</loc>
 	</url>
 	<url>
+		<loc>http://www.codesimplelife.com/2014/02/14/compress_png_file_to_decrease_ipa_size.html</loc>
+		<lastmod>2014-02-14</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
 		<loc>http://www.codesimplelife.com/2013/12/12/record_python_tips.html</loc>
 		<lastmod>2013-12-12</lastmod>
 		<changefreq>weekly</changefreq>
@@ -44,12 +49,12 @@
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
-		<loc>http://www.codesimplelife.com/2013/05/30/about_nscache.html</loc>
+		<loc>http://www.codesimplelife.com/2013/05/30/git_useage_and_github.html</loc>
 		<lastmod>2013-05-30</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
-		<loc>http://www.codesimplelife.com/2013/05/30/git_useage_and_github.html</loc>
+		<loc>http://www.codesimplelife.com/2013/05/30/about_nscache.html</loc>
 		<lastmod>2013-05-30</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
@@ -69,12 +74,12 @@
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
-		<loc>http://www.codesimplelife.com/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc.html</loc>
+		<loc>http://www.codesimplelife.com/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc[V1.0].html</loc>
 		<lastmod>2013-04-06</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
-		<loc>http://www.codesimplelife.com/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc[V1.0].html</loc>
+		<loc>http://www.codesimplelife.com/2013/04/06/create-docset-used-by-xcode-the-tool-appledoc.html</loc>
 		<lastmod>2013-04-06</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
